@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class medicine_database_helper extends SQLiteOpenHelper {
-
+    // tes
     public static final String MEDICINE_DB = "Medicine.db";
 
     public medicine_database_helper(Context context){
