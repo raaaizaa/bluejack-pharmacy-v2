@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/biru_binus"
+    tools:context=".activities.login">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bluejack Pharmacy"
+                android:textColor="@color/full_white"
+                android:textSize="94px"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Register"
+                android:textColor="@color/full_white"
+                android:textSize="94px"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginVertical="24dp"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/register_name_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="6dp"
+                    android:background="@drawable/edittext_styling"
+                    android:hint="Name"
+                    android:padding="6dp"
+                    android:textColor="@color/biru_binus_text"
+                    android:inputType="text"
+                    android:textColorHint="@color/biru_binus_text" />
+
+
+                <EditText
+                    android:id="@+id/register_email_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="6dp"
+                    android:background="@drawable/edittext_styling"
+                    android:hint="Email"
+                    android:padding="6dp"
+                    android:textColor="@color/biru_binus_text"
+                    android:inputType="textEmailAddress"
+                    android:textColorHint="@color/biru_binus_text" />
+
+                <EditText
+                    android:id="@+id/register_password_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="6dp"
+                    android:background="@drawable/edittext_styling"
+                    android:hint="Password"
+                    android:padding="6dp"
+                    android:textColor="@color/biru_binus_text"
+                    android:inputType="textPassword"
+                    android:textColorHint="@color/biru_binus_text" />
+
+                <EditText
+                    android:id="@+id/register_confirm_password_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="6dp"
+                    android:background="@drawable/edittext_styling"
+                    android:hint="Confirm Password"
+                    android:padding="6dp"
+                    android:textColor="@color/biru_binus_text"
+                    android:inputType="textPassword"
+                    android:textColorHint="@color/biru_binus_text" />
+
+                <EditText
+                    android:id="@+id/register_phone_number_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="6dp"
+                    android:background="@drawable/edittext_styling"
+                    android:hint="Phone Number"
+                    android:padding="6dp"
+                    android:textColor="@color/biru_binus_text"
+                    android:inputType="phone"
+                    android:textColorHint="@color/biru_binus_text" />
+
+
+                <Button
+                    android:id="@+id/register_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:background="@drawable/button_styling"
+                    android:textStyle="bold"
+                    android:layout_marginVertical="6dp"
+                    android:text="Register" />
+
+                <Button
+                    android:id="@+id/go_to_login_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:background="@drawable/button_styling"
+                    android:textStyle="bold"
+                    android:layout_marginVertical="6dp"
+                    android:text="Go to login page" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

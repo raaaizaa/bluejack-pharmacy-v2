@@ -17,9 +17,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class map extends AppCompatActivity implements OnMapReadyCallback{
 
     private GoogleMap map;
-    private float ZOOM_LEVEL = 15.0f;
-    private double LAT = -6.20201, LONG = 106.78113;
-    private String MARKER_NAME = "Bluejack Pharmacy";
+    private final float ZOOM_LEVEL = 15.0f;
+    private final double LAT = -6.20201, LONG = 106.78113;
+    private final String MARKER_NAME = "Bluejack Pharmacy";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

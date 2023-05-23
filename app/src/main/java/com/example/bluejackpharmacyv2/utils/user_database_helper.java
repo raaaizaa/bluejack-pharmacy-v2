@@ -58,6 +58,16 @@ public class user_database_helper extends SQLiteOpenHelper {
         return result;
     }
 
+    public boolean checkEmail(String email, String password){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT * FROM user WHERE email = ? AND password = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{email, password});
+
+        boolean result = cursor.getCount() > 0;
+        cursor.close();
+        return result;
+    }
+
     public Integer generateUserId(){
         SQLiteDatabase db = this.getWritableDatabase();
         String selectMax = "SELECT MAX(userId) FROM user";
