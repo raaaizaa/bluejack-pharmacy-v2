@@ -67,16 +67,13 @@ public class register extends AppCompatActivity {
             }else{
                 if(insertUserToDatabase(name, email, password, phoneNumber)){
                     showToast("Login Success!");
-
-                    Intent intent = new Intent(this, login.class);
-                    startActivity(intent);
+                    goToLogin();
                 }
             }
         });
 
         goToLoginButton.setOnClickListener(e -> {
-            Intent intent = new Intent(this, login.class);
-            startActivity(intent);
+            goToLogin();
         });
     }
 
@@ -132,6 +129,11 @@ public class register extends AppCompatActivity {
             userDb.insertUser(name, email, password, phoneNumber);
             return true;
         }
+    }
+
+    private void goToLogin(){
+        Intent intent = new Intent(this, login.class);
+        startActivity(intent);
     }
 
     private void showToast(String message){

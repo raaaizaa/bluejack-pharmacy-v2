@@ -59,6 +59,7 @@ public class login extends AppCompatActivity {
             }else{
                 if(loginIsValid){
                     showToast("Login Success!");
+                    goToHome();
                 }else{
                     showToast("Invalid User!");
                 }
@@ -67,9 +68,19 @@ public class login extends AppCompatActivity {
         });
 
         goToRegisterButton.setOnClickListener(e -> {
-            Intent intent = new Intent(this, register.class);
-            startActivity(intent);
+            goToRegister();
         });
+    }
+
+    private void goToRegister(){
+        Intent intent = new Intent(this, register.class);
+        startActivity(intent);
+    }
+
+    private void goToHome(){
+        Intent intent = new Intent(this, home.class);
+        startActivity(intent);
+        finish();
     }
 
     private void showToast(String message){
