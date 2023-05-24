@@ -27,7 +27,7 @@ public class user_database_helper extends SQLiteOpenHelper {
         db.execSQL(dropQuery);
     }
 
-    public boolean insertUser(String name, String email, String password, String phone, String verified){
+    public boolean insertUser(String name, String email, String password, String phone){
         SQLiteDatabase db = this.getWritableDatabase();
         boolean userExists = checkUser(name, password);
 
@@ -36,12 +36,12 @@ public class user_database_helper extends SQLiteOpenHelper {
             return false;
         }else {
             Integer userId = generateUserId();
-            ContentValues contentValues = inputContent(userId, name, email, password, phone, verified);
+            ContentValues contentValues = inputContent(userId, name, email, password, phone);
 
             long results = db.insert("user", null, contentValues);
 
             Log.i("userDbHelper", "insertUser: Inserting User Success!");
-            Log.i("userDbHelper", "userId: " + userId.toString() + " name: " + name + " email: " + email + " password: " + password + " phone: " + phone + " verified: " + verified);
+            Log.i("userDbHelper", "userId: " + userId.toString() + " name: " + name + " email: " + email + " password: " + password + " phone: " + phone);
 
             db.close();
             return results != -1;
@@ -58,10 +58,20 @@ public class user_database_helper extends SQLiteOpenHelper {
         return result;
     }
 
-    public boolean checkEmail(String email, String password){
+    public boolean loginCheck(String email, String password){
         SQLiteDatabase db = this.getWritableDatabase();
         String selectQuery = "SELECT * FROM user WHERE email = ? AND password = ?";
         Cursor cursor = db.rawQuery(selectQuery, new String[]{email, password});
+
+        boolean result = cursor.getCount() > 0;
+        cursor.close();
+        return result;
+    }
+
+    public boolean checkRegister(String name, String email, String phone){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT * FROM user WHERE name = ? OR email = ? OR phone = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{name, email, phone});
 
         boolean result = cursor.getCount() > 0;
         cursor.close();
@@ -86,7 +96,37 @@ public class user_database_helper extends SQLiteOpenHelper {
         return newUserId;
     }
 
-    private ContentValues inputContent(Integer userId, String name, String email, String password, String phone, String verified){
+    public boolean checkUsername(String name){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT * FROM user WHERE name = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{name});
+
+        boolean result = cursor.getCount() > 0;
+        cursor.close();
+        return result;
+    }
+
+    public boolean checkEmail(String email){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT * FROM user WHERE email = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{email});
+
+        boolean result = cursor.getCount() > 0;
+        cursor.close();
+        return result;
+    }
+
+    public boolean checkPhoneNumber(String phone){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT * FROM user WHERE phone = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{phone});
+
+        boolean result = cursor.getCount() > 0;
+        cursor.close();
+        return result;
+    }
+
+    private ContentValues inputContent(Integer userId, String name, String email, String password, String phone){
         ContentValues contentValues = new ContentValues();
 
         contentValues.put("userId", userId);
@@ -95,7 +135,7 @@ public class user_database_helper extends SQLiteOpenHelper {
         contentValues.put("password", password);
         contentValues.put("phone", phone);
         contentValues.put("userId", userId);
-        contentValues.put("verified", verified);
+        contentValues.put("verified", 0);
 
         return contentValues;
     }

@@ -28,7 +28,7 @@ public class login extends AppCompatActivity {
 
     private boolean loginValidation(String email, String password){
         userDb = new user_database_helper(this);
-        boolean userExists = userDb.checkEmail(email, password);
+        boolean userExists = userDb.loginCheck(email, password);
 
         if(userExists){
             Log.i("login", "validate: user exists!");
@@ -50,11 +50,11 @@ public class login extends AppCompatActivity {
 
     private void setListener(){
         loginButton.setOnClickListener(e -> {
-            String inputtedEmail = emailField.getText().toString();
-            String inputtedPassword = passwordField.getText().toString();
-            boolean loginIsValid = loginValidation(inputtedEmail, inputtedPassword);
+            String email = emailField.getText().toString();
+            String password = passwordField.getText().toString();
+            boolean loginIsValid = loginValidation(email, password);
 
-            if(inputtedEmail.isEmpty() || inputtedPassword.isEmpty()){
+            if(email.isEmpty() || password.isEmpty()){
                 showToast("All fields must be filled!");
             }else{
                 if(loginIsValid){
