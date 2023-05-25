@@ -31,10 +31,23 @@ public class login extends AppCompatActivity {
         boolean userExists = userDb.loginCheck(email, password);
 
         if(userExists){
-            Log.i("login", "validate: user exists!");
+            Log.i("login", "loginValidation: user exists!");
             return true;
         }else{
-            Log.i("login", "validate: user does not exists!");
+            Log.i("login", "loginValidation: user does not exists!");
+            return false;
+        }
+    }
+
+    private boolean isUserVerified(String email){
+        userDb = new user_database_helper(this);
+        boolean userIsVerified = userDb.checkVerified(email);
+
+        if(userIsVerified){
+            Log.i("login", "isUserVerified: User is verified!");
+            return true;
+        }else{
+            Log.i("login", "isUserVerified: User isn't verified!");
             return false;
         }
     }
@@ -58,18 +71,20 @@ public class login extends AppCompatActivity {
                 showToast("All fields must be filled!");
             }else{
                 if(loginIsValid){
-                    showToast("Login Success!");
-                    goToHome();
+                    if(!isUserVerified(email)){
+                        showToast("Your account hasn't been verified!");
+                        goToOtp();
+                    }else{
+                        showToast("Login Success!");
+                        goToHome();
+                    }
                 }else{
                     showToast("Invalid User!");
                 }
             }
-
         });
 
-        goToRegisterButton.setOnClickListener(e -> {
-            goToRegister();
-        });
+        goToRegisterButton.setOnClickListener(e -> goToRegister());
     }
 
     private void goToRegister(){
@@ -79,6 +94,12 @@ public class login extends AppCompatActivity {
 
     private void goToHome(){
         Intent intent = new Intent(this, home.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void goToOtp(){
+        Intent intent = new Intent(this, otp.class);
         startActivity(intent);
         finish();
     }

@@ -27,13 +27,12 @@ public class user_database_helper extends SQLiteOpenHelper {
         db.execSQL(dropQuery);
     }
 
-    public boolean insertUser(String name, String email, String password, String phone){
+    public void insertUser(String name, String email, String password, String phone){
         SQLiteDatabase db = this.getWritableDatabase();
         boolean userExists = checkUser(name, password);
 
         if(userExists){
             Log.i("userDbHelper", "insertUser: User Already Exists!");
-            return false;
         }else {
             Integer userId = generateUserId();
             ContentValues contentValues = inputContent(userId, name, email, password, phone);
@@ -44,7 +43,6 @@ public class user_database_helper extends SQLiteOpenHelper {
             Log.i("userDbHelper", "userId: " + userId.toString() + " name: " + name + " email: " + email + " password: " + password + " phone: " + phone);
 
             db.close();
-            return results != -1;
         }
     }
 
@@ -122,6 +120,21 @@ public class user_database_helper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, new String[]{phone});
 
         boolean result = cursor.getCount() > 0;
+        cursor.close();
+        return result;
+    }
+
+    public boolean checkVerified(String email){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT verified FROM user WHERE email = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{email});
+
+        boolean result = false;
+        if(cursor.moveToFirst()){
+            int value = cursor.getInt(cursor.getColumnIndex("verified"));
+            result = (value != 0);
+        }
+
         cursor.close();
         return result;
     }

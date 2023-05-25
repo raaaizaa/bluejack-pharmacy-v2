@@ -21,7 +21,7 @@ public class register extends AppCompatActivity {
 
     private EditText nameField, emailField, passwordField, confirmPassField, phoneNumberField;
     private Button registerButton, goToLoginButton;
-    user_database_helper userDb;
+    private user_database_helper userDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +72,7 @@ public class register extends AppCompatActivity {
             }
         });
 
-        goToLoginButton.setOnClickListener(e -> {
-            goToLogin();
-        });
+        goToLoginButton.setOnClickListener(e -> goToLogin());
     }
 
     private boolean isAnyInputEmpty(String... inputs) {
