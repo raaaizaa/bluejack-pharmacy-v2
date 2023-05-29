@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "347724242580",
+    "project_id": "bluejack-otp",
+    "storage_bucket": "bluejack-otp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:347724242580:android:c3fd4c92f0447eaefb5e81",
+        "android_client_info": {
+          "package_name": "com.example.bluejackpharmacyv2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCo1fgIosHW8-C4jbHnqpwCe5ieRkqv2Jo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
