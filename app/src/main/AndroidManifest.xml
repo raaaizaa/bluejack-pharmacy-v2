@@ -17,12 +17,15 @@
         tools:targetApi="31">
         <activity
             android:name=".otp"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".home"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".activities.register"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
 
         <meta-data

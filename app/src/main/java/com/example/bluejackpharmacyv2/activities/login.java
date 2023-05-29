@@ -73,10 +73,10 @@ public class login extends AppCompatActivity {
                 if(loginIsValid){
                     if(!isUserVerified(email)){
                         showToast("Your account hasn't been verified!");
-                        goToOtp();
+                        startOtp();
                     }else{
                         showToast("Login Success!");
-                        goToHome();
+                        startHome();
                     }
                 }else{
                     showToast("Invalid User!");
@@ -84,21 +84,21 @@ public class login extends AppCompatActivity {
             }
         });
 
-        goToRegisterButton.setOnClickListener(e -> goToRegister());
+        goToRegisterButton.setOnClickListener(e -> startRegister());
     }
 
-    private void goToRegister(){
+    private void startRegister(){
         Intent intent = new Intent(this, register.class);
         startActivity(intent);
     }
 
-    private void goToHome(){
+    private void startHome(){
         Intent intent = new Intent(this, home.class);
         startActivity(intent);
         finish();
     }
 
-    private void goToOtp(){
+    private void startOtp(){
         Intent intent = new Intent(this, otp.class);
         startActivity(intent);
         finish();

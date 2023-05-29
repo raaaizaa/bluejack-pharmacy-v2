@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
@@ -65,14 +66,15 @@ public class register extends AppCompatActivity {
             }else if(!isPhoneNumberValid(phoneNumber)){
                 showToast("Phone Number is not valid!");
             }else{
-                if(insertUserToDatabase(name, email, password, phoneNumber)){
-                    showToast("Login Success!");
-                    goToLogin();
-                }
+                insertUserToDatabase(name, email, password, phoneNumber);
+                showToast("Login Success!");
+                Log.i("register", "setListener: Login Success!");
+                Log.i("register", "name: " + name  + " email: " + email + " password: " + password + " phoneNumber: " + phoneNumber);
+                startLogin();
             }
         });
 
-        goToLoginButton.setOnClickListener(e -> goToLogin());
+        goToLoginButton.setOnClickListener(e -> startLogin());
     }
 
     private boolean isAnyInputEmpty(String... inputs) {
@@ -129,9 +131,10 @@ public class register extends AppCompatActivity {
         }
     }
 
-    private void goToLogin(){
+    private void startLogin(){
         Intent intent = new Intent(this, login.class);
         startActivity(intent);
+        finish();
     }
 
     private void showToast(String message){
