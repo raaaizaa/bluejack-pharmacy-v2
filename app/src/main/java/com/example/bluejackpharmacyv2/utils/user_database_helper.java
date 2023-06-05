@@ -133,10 +133,44 @@ public class user_database_helper extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
             int value = cursor.getInt(cursor.getColumnIndex("verified"));
             result = (value != 0);
+            Log.i("checkVerified: ", "result = " + result);
         }
 
         cursor.close();
         return result;
+    }
+
+    public String getPhoneNumber(String email){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT phone FROM user WHERE email = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{email});
+
+        String phoneNumber = null;
+        if (cursor.moveToFirst()) {
+            phoneNumber = cursor.getString(cursor.getColumnIndex("phone"));
+        }
+        cursor.close();
+        return phoneNumber;
+    }
+
+    public void verificationCompleted(String email, String message) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("verified", message);
+
+        String whereClause = "email = ?";
+        String[] whereArgs = { email };
+
+        int rowsAffected = db.update("user", values, whereClause, whereArgs);
+
+        if (rowsAffected > 0) {
+            Log.i("userDbHelper","Verification status updated successfully!");
+        } else {
+            Log.i("userDbHelper","Failed to update verification status!");
+        }
+
+        db.close();
     }
 
     private ContentValues inputContent(Integer userId, String name, String email, String password, String phone){

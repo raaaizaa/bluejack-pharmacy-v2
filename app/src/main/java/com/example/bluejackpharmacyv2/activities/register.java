@@ -69,7 +69,6 @@ public class register extends AppCompatActivity {
                 insertUserToDatabase(name, email, password, phoneNumber);
                 showToast("Login Success!");
                 Log.i("register", "setListener: Login Success!");
-                Log.i("register", "name: " + name  + " email: " + email + " password: " + password + " phoneNumber: " + phoneNumber);
                 startLogin();
             }
         });
@@ -126,7 +125,16 @@ public class register extends AppCompatActivity {
             showToast("Phone Number is already registered!");
             return false;
         }else{
-            userDb.insertUser(name, email, password, phoneNumber);
+            if(phoneNumber.contains("+62")){
+                userDb.insertUser(name, email, password, phoneNumber);
+                Log.i("register", "name: " + name  + " email: " + email + " password: " + password + " phoneNumber: " + phoneNumber);
+            }else if(!phoneNumber.contains("+62")){
+                String countryCode = "+62";
+                String fixedPhoneNumber = countryCode.concat(phoneNumber);
+
+                userDb.insertUser(name, email, password, fixedPhoneNumber);
+                Log.i("register", "name: " + name  + " email: " + email + " password: " + password + " phoneNumber: " + fixedPhoneNumber);
+            }
             return true;
         }
     }
