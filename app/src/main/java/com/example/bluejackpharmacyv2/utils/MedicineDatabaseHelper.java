@@ -7,11 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class medicine_database_helper extends SQLiteOpenHelper {
+public class MedicineDatabaseHelper extends SQLiteOpenHelper {
 
     public static final String MEDICINE_DB = "Medicine.db";
 
-    public medicine_database_helper(Context context){
+    public MedicineDatabaseHelper(Context context){
         super(context, MEDICINE_DB, null, 1);
     }
 

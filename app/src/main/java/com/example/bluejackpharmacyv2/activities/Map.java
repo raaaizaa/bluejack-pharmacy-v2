@@ -14,7 +14,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class map extends AppCompatActivity implements OnMapReadyCallback{
+public class Map extends AppCompatActivity implements OnMapReadyCallback{
 
     private GoogleMap map;
     private final float ZOOM_LEVEL = 15.0f;

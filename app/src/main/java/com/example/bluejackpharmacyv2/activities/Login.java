@@ -10,13 +10,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.bluejackpharmacyv2.R;
-import com.example.bluejackpharmacyv2.utils.user_database_helper;
+import com.example.bluejackpharmacyv2.utils.UserDatabaseHelper;
 
-public class login extends AppCompatActivity {
+public class Login extends AppCompatActivity {
 
     private EditText emailField, passwordField;
     private Button loginButton, goToRegisterButton;
-    private user_database_helper userDb;
+    private UserDatabaseHelper userDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class login extends AppCompatActivity {
     }
 
     private boolean loginValidation(String email, String password){
-        userDb = new user_database_helper(this);
+        userDb = new UserDatabaseHelper(this);
         boolean userExists = userDb.loginCheck(email, password);
 
         if(userExists){
@@ -40,7 +40,7 @@ public class login extends AppCompatActivity {
     }
 
     private boolean isUserVerified(String email){
-        userDb = new user_database_helper(this);
+        userDb = new UserDatabaseHelper(this);
         boolean userIsVerified = userDb.checkVerified(email);
 
         if(userIsVerified){
@@ -53,6 +53,9 @@ public class login extends AppCompatActivity {
     }
 
     private void initialize(){
+        userDb = new UserDatabaseHelper(this);
+        userDb.insertDummyUser();
+
         emailField = findViewById(R.id.login_email_field);
         passwordField = findViewById(R.id.login_password_field);
         goToRegisterButton = findViewById(R.id.go_to_register_button);
@@ -88,18 +91,18 @@ public class login extends AppCompatActivity {
     }
 
     private void startRegister(){
-        Intent intent = new Intent(this, register.class);
+        Intent intent = new Intent(this, Register.class);
         startActivity(intent);
     }
 
     private void startHome(){
-        Intent intent = new Intent(this, home.class);
+        Intent intent = new Intent(this, Home.class);
         startActivity(intent);
         finish();
     }
 
     private void startOtp(String email){
-        Intent intent = new Intent(this, otp.class);
+        Intent intent = new Intent(this, Authentication.class);
         intent.putExtra("email", email);
         startActivity(intent);
         finish();

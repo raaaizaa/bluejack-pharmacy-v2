@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/biru_binus"
-    tools:context=".activities.otp">
+    tools:context=".activities.Authentication">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

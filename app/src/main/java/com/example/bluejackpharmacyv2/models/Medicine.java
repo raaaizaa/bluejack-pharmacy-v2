@@ -1,10 +1,10 @@
 package com.example.bluejackpharmacyv2.models;
 
-public class medicine {
+public class Medicine {
     Integer medicineId, price;
     String medicineName, manufacturer, image, description;
 
-    public medicine(Integer medicineId, Integer price, String medicineName, String manufacturer, String image, String description) {
+    public Medicine(Integer medicineId, Integer price, String medicineName, String manufacturer, String image, String description) {
         this.medicineId = medicineId;
         this.price = price;
         this.medicineName = medicineName;

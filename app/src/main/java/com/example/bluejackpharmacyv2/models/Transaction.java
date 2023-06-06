@@ -2,11 +2,11 @@ package com.example.bluejackpharmacyv2.models;
 
 import java.util.Date;
 
-public class transaction {
+public class Transaction {
     Integer transactionId, medicineId, userId, quantity;
     Date transactionDate;
 
-    public transaction(Integer transactionId, Integer medicineId, Integer userId, Integer quantity, Date transactionDate) {
+    public Transaction(Integer transactionId, Integer medicineId, Integer userId, Integer quantity, Date transactionDate) {
         this.transactionId = transactionId;
         this.medicineId = medicineId;
         this.userId = userId;

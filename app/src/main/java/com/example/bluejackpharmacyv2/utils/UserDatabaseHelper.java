@@ -7,11 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class user_database_helper extends SQLiteOpenHelper {
+public class UserDatabaseHelper extends SQLiteOpenHelper {
 
     public static final String USER_DB = "User.db";
 
-    public user_database_helper(Context context){
+    public UserDatabaseHelper(Context context){
         super(context, USER_DB, null, 1);
     }
 
@@ -169,6 +169,25 @@ public class user_database_helper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void insertDummyUser(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        boolean userExists = checkUser("dummy", "dummy123");
+
+        if(!userExists){
+            ContentValues contentValues = new ContentValues();
+
+            contentValues.put("userId", 1);
+            contentValues.put("name", "dummy");
+            contentValues.put("email", "dummy@gmail.com");
+            contentValues.put("password", "dummy123");
+            contentValues.put("phone", "+6281314102381");
+            contentValues.put("verified", "verified");
+
+            long results = db.insert("user", null, contentValues);
+            db.close();
+        }
+    }
+
     private ContentValues inputContent(Integer userId, String name, String email, String password, String phone){
         ContentValues contentValues = new ContentValues();
 
@@ -177,7 +196,6 @@ public class user_database_helper extends SQLiteOpenHelper {
         contentValues.put("email", email);
         contentValues.put("password", password);
         contentValues.put("phone", phone);
-        contentValues.put("userId", userId);
         contentValues.put("verified", 0);
 
         return contentValues;

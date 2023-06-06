@@ -19,16 +19,16 @@
         android:enableOnBackInvokedCallback="true"
         tools:targetApi="31">
         <activity
-            android:name=".activities.otp"
+            android:name=".activities.Authentication"
             android:windowSoftInputMode="adjustResize"
 
             android:exported="false" />
         <activity
-            android:name=".activities.home"
+            android:name=".activities.Home"
             android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
-            android:name=".activities.register"
+            android:name=".activities.Register"
             android:windowSoftInputMode="adjustResize"
             android:exported="false" />
 
@@ -41,10 +41,10 @@
             android:value="640487730531-s46nmv1c3og1ia1i4itv5qbbe6a3a2ta.apps.googleusercontent.com" />
 
         <activity
-            android:name=".activities.map"
+            android:name=".activities.Map"
             android:exported="false" />
         <activity
-            android:name=".activities.login"
+            android:name=".activities.Login"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>

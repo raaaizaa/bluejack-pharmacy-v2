@@ -1,10 +1,10 @@
 package com.example.bluejackpharmacyv2.models;
 
-public class user {
+public class User {
     Integer userId;
     String name, email, password, phone, isVerified;
 
-    public user(Integer userId, String name, String email, String password, String phone, String isVerified) {
+    public User(Integer userId, String name, String email, String password, String phone, String isVerified) {
         this.userId = userId;
         this.name = name;
         this.email = email;

@@ -4,23 +4,11 @@
     android:layout_height="48dp"
     android:background="@color/biru_binus">
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:src="@drawable/baseline_menu_24" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:textSize="36dp"
-        android:textAlignment="center"
+        android:textSize="24dp"
+        android:padding="4dp"
         android:text="Bluejack Pharmacy"/>
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:src="@drawable/baseline_person_24" />
 
 </GridLayout>

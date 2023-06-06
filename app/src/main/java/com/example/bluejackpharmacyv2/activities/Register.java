@@ -13,16 +13,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.bluejackpharmacyv2.R;
-import com.example.bluejackpharmacyv2.utils.user_database_helper;
+import com.example.bluejackpharmacyv2.utils.UserDatabaseHelper;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class register extends AppCompatActivity {
+public class Register extends AppCompatActivity {
 
     private EditText nameField, emailField, passwordField, confirmPassField, phoneNumberField;
     private Button registerButton, goToLoginButton;
-    private user_database_helper userDb;
+    private UserDatabaseHelper userDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +110,7 @@ public class register extends AppCompatActivity {
     }
 
     private boolean insertUserToDatabase(String name, String email, String password, String phoneNumber){
-        userDb = new user_database_helper(this);
+        userDb = new UserDatabaseHelper(this);
         boolean usernameExists = userDb.checkUsername(name);
         boolean emailExists = userDb.checkEmail(email);
         boolean phoneNumberExists = userDb.checkPhoneNumber(phoneNumber);
@@ -140,7 +140,7 @@ public class register extends AppCompatActivity {
     }
 
     private void startLogin(){
-        Intent intent = new Intent(this, login.class);
+        Intent intent = new Intent(this, Login.class);
         startActivity(intent);
         finish();
     }

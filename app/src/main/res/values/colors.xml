@@ -8,4 +8,5 @@
     <color name="full_white">#ffffff</color>
     <color name="orange_binus">#FE9124</color>
     <color name="orange_binus_lighter">#fea74f</color>
+    <color name="black">#000000</color>
 </resources>

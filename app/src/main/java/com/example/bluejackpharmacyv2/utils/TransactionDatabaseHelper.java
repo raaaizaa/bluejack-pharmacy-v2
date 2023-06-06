@@ -9,11 +9,11 @@ import android.util.Log;
 
 import java.util.Date;
 
-public class transaction_database_helper extends SQLiteOpenHelper {
+public class TransactionDatabaseHelper extends SQLiteOpenHelper {
 
     public static final String TRANSACTION_DB = "Transaction.db";
 
-    public transaction_database_helper(Context context){
+    public TransactionDatabaseHelper(Context context){
         super(context, TRANSACTION_DB, null, 1);
     }
 

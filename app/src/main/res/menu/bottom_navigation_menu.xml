@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_medicine"
+        android:title="Home"
+        android:icon="@drawable/baseline_home_24" />
+    <item
+        android:id="@+id/navigation_transaction"
+        android:title="Transaction"
+        android:icon="@drawable/baseline_compare_arrows_24" />
+    <item
+        android:id="@+id/navigation_profile"
+        android:title="Profile"
+        android:icon="@drawable/baseline_person_24" />
+</menu>

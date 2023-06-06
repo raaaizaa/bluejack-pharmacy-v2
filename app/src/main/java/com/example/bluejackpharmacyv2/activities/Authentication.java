@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bluejackpharmacyv2.R;
-import com.example.bluejackpharmacyv2.utils.user_database_helper;
+import com.example.bluejackpharmacyv2.utils.UserDatabaseHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -30,7 +30,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
 
-public class otp extends AppCompatActivity {
+public class Authentication extends AppCompatActivity {
 
     private String mVerificationId;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
@@ -39,7 +39,7 @@ public class otp extends AppCompatActivity {
     private EditText otpField;
     private Button enterOtpButton;
     private TextView resendOtpTextView;
-    user_database_helper userDb;
+    UserDatabaseHelper userDb;
     String email;
     String verificationId;
     String PHONE_NUM;
@@ -48,7 +48,7 @@ public class otp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp);
-        userDb = new user_database_helper(this);
+        userDb = new UserDatabaseHelper(this);
 
         email = getIntent().getStringExtra("email");
         PHONE_NUM = userDb.getPhoneNumber(email);
@@ -182,7 +182,7 @@ public class otp extends AppCompatActivity {
     }
 
     private void startHome(){
-        Intent intent = new Intent(this, home.class);
+        Intent intent = new Intent(this, Home.class);
         startActivity(intent);
     }
 
