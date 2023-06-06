@@ -124,15 +124,15 @@ public class user_database_helper extends SQLiteOpenHelper {
         return result;
     }
 
-    public boolean checkVerified(String email){
+    public boolean checkVerified(String email) {
         SQLiteDatabase db = this.getWritableDatabase();
         String selectQuery = "SELECT verified FROM user WHERE email = ?";
         Cursor cursor = db.rawQuery(selectQuery, new String[]{email});
 
         boolean result = false;
-        if(cursor.moveToFirst()){
-            int value = cursor.getInt(cursor.getColumnIndex("verified"));
-            result = (value != 0);
+        if (cursor.moveToFirst()) {
+            String value = cursor.getString(cursor.getColumnIndex("verified"));
+            result = value.equals("verified");
             Log.i("checkVerified: ", "result = " + result);
         }
 
@@ -155,14 +155,10 @@ public class user_database_helper extends SQLiteOpenHelper {
 
     public void verificationCompleted(String email, String message) {
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put("verified", message);
 
-        String whereClause = "email = ?";
-        String[] whereArgs = { email };
-
-        int rowsAffected = db.update("user", values, whereClause, whereArgs);
+        int rowsAffected = db.update("user", values, "email = ?", new String[]{email});
 
         if (rowsAffected > 0) {
             Log.i("userDbHelper","Verification status updated successfully!");
