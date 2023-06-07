@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/full_white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.MedicineFragment">
 
     <LinearLayout
@@ -11,10 +11,56 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="36dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/biru_binus_darker"
+                    android:paddingHorizontal="12dp"
+                    android:paddingTop="12dp"
+                    android:text="Hi!" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:paddingHorizontal="12dp"
+                    android:paddingBottom="12dp"
+                    android:textColor="@color/black"
+                    android:text="Wishing you good health and a great experience with us." />
+
+            </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="32dp"
+            android:textStyle="bold"
+            android:textColor="@color/biru_binus_darker"
+            android:paddingVertical="12dp"
+            android:text="Explore our medicines for a healthier you." />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/medicines_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:padding="2dp" />
+
+    </LinearLayout>
 
     </LinearLayout>
 

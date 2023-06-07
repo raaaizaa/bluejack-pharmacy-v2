@@ -62,7 +62,7 @@ public class MedicineDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String selectMax = "SELECT MAX(medicineId) FROM medicine";
         Cursor cursor = db.rawQuery(selectMax, null);
-        Integer latestMedicineId = 0;
+        Integer latestMedicineId = 2023001;
 
         if(cursor.moveToFirst()){
             latestMedicineId = cursor.getInt(0);
@@ -75,6 +75,23 @@ public class MedicineDatabaseHelper extends SQLiteOpenHelper {
         Log.i("medicineDbHelper", "generateMedicineId: new generated ID is = " + newMedicineId);
         return newMedicineId;
     }
+
+    public Integer getMedicineId(String medicineName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT medicineId FROM medicine WHERE medicineName = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{medicineName});
+
+        Integer medicineId = null;
+
+        if (cursor.moveToFirst()) {
+            medicineId = cursor.getInt(cursor.getColumnIndex("medicineId"));
+        }
+
+        cursor.close();
+
+        return medicineId;
+    }
+
 
     private ContentValues inputContent(Integer medicineId, String medicineName, String manufacturer, Integer price, String image, String description) {
         ContentValues contentValues = new ContentValues();

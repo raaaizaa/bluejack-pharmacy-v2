@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.bluejackpharmacyv2.R;
+import com.example.bluejackpharmacyv2.fragments.MedicineFragment;
 import com.example.bluejackpharmacyv2.fragments.ProfileFragment;
 import com.example.bluejackpharmacyv2.fragments.TransactionFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -40,6 +41,8 @@ public class Home extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.navigation_medicine:
+                    MedicineFragment medicineFragment = new MedicineFragment();
+                    replaceFragment(medicineFragment);
                     return true;
                 case R.id.navigation_transaction:
                     TransactionFragment transactionFragment = new TransactionFragment();

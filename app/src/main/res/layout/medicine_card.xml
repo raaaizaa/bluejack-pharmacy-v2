@@ -2,15 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white_slightly_darker">
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="12dp"
+    android:paddingVertical="3dp"
+    android:clipToPadding="false"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/full_white"
-        app:cardCornerRadius="2dp">
+        app:cardCornerRadius="14dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,21 +28,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:padding="6dp"
                 android:orientation="vertical" >
 
                 <TextView
                     android:id="@+id/medicine_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
-                    android:textColor="@color/black"
-                    android:text="null" />
-
-                <TextView
-                    android:id="@+id/medicine_manufacturer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:textSize="18dp"
+                    android:textColor="@color/black"
                     android:text="null" />
 
                 <TextView
@@ -48,7 +44,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
                     android:text="null" />
+
+                <TextView
+                    android:id="@+id/medicine_manufacturer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:textColor="@color/biru_binus_text"
+                    android:text="null" />
+
 
             </LinearLayout>
 

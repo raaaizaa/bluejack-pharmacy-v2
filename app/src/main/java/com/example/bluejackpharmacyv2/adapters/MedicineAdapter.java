@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bluejackpharmacyv2.R;
 import com.example.bluejackpharmacyv2.models.Medicine;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -37,8 +38,6 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
         }
     }
 
-
-
     @NonNull
     @Override
     public MedicineAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -51,7 +50,12 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
         Medicine medicine = medicines.get(position);
         holder.medicineName.setText(medicine.getMedicineName());
         holder.medicineManufacturer.setText(medicine.getManufacturer());
-        holder.medicinePrice.setText(medicine.getPrice());
+        holder.medicinePrice.setText(String.valueOf(medicine.getPrice()));
+        Picasso.get().load(medicine.getImage()).into(holder.medicineImage);
+
+        holder.itemView.setOnClickListener(e -> {
+
+        });
     }
 
     @Override
