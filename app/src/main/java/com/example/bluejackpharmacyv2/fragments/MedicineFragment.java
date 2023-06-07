@@ -24,6 +24,7 @@ import com.example.bluejackpharmacyv2.R;
 import com.example.bluejackpharmacyv2.adapters.MedicineAdapter;
 import com.example.bluejackpharmacyv2.models.Medicine;
 import com.example.bluejackpharmacyv2.utils.MedicineDatabaseHelper;
+import com.example.bluejackpharmacyv2.utils.UserDatabaseHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,7 +41,10 @@ public class MedicineFragment extends Fragment {
     RecyclerView medicineRV;
     MedicineAdapter adapter;
     List<Medicine> medicines;
+    TextView greetingTextview;
     View view;
+    UserDatabaseHelper userDb;
+    String email;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,8 +52,22 @@ public class MedicineFragment extends Fragment {
         this.context = getContext();
 
         medicineRV = view.findViewById(R.id.medicines_recyclerview);
+        Bundle args = getArguments();
+
+        if(args != null){
+            email = args.getString("email");
+        }
+
+        initialize(email);
         fetchJson();
         return view;
+    }
+
+    private void initialize(String email){
+        userDb = new UserDatabaseHelper(context);
+        greetingTextview = view.findViewById(R.id.greeting_text);
+        String name = userDb.getName(email);
+        greetingTextview.setText("Hi, " + name + "!");
     }
 
     private void fetchJson(){

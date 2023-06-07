@@ -31,26 +31,27 @@ public class Home extends AppCompatActivity {
     }
 
     private void initialize(){
+        String email = getIntent().getStringExtra("email");
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
-        setListener();
+        setListener(email);
     }
 
     @SuppressLint("NonConstantResourceId")
-    private void setListener(){
+    private void setListener(String email){
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.navigation_medicine:
                     MedicineFragment medicineFragment = new MedicineFragment();
-                    replaceFragment(medicineFragment);
+                    replaceFragment(medicineFragment, email);
                     return true;
                 case R.id.navigation_transaction:
                     TransactionFragment transactionFragment = new TransactionFragment();
-                    replaceFragment(transactionFragment);
+                    replaceFragment(transactionFragment, email);
                     return true;
                 case R.id.navigation_profile:
                     ProfileFragment profileFragment = new ProfileFragment();
-                    replaceFragment(profileFragment);
+                    replaceFragment(profileFragment, email);
                     return true;
             }
 
@@ -59,7 +60,10 @@ public class Home extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.navigation_medicine);
     }
 
-    private void replaceFragment(Fragment fragment){
+    private void replaceFragment(Fragment fragment, String email){
+        Bundle args = new Bundle();
+        args.putString("email", email);
+        fragment.setArguments(args);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);

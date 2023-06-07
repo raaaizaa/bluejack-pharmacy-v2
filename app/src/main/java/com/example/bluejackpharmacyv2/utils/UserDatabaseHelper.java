@@ -7,9 +7,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.bluejackpharmacyv2.models.User;
+
+import java.util.List;
+
 public class UserDatabaseHelper extends SQLiteOpenHelper {
 
     public static final String USER_DB = "User.db";
+    private List<User> users;
 
     public UserDatabaseHelper(Context context){
         super(context, USER_DB, null, 1);
@@ -140,6 +145,20 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         return result;
     }
 
+    public String getName(String email){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT name FROM user WHERE email = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{email});
+
+        String name = null;
+        if(cursor.moveToFirst()){
+            name = cursor.getString(cursor.getColumnIndex("name"));
+        }
+
+        cursor.close();
+        return name;
+    }
+
     public String getPhoneNumber(String email){
         SQLiteDatabase db = this.getWritableDatabase();
         String selectQuery = "SELECT phone FROM user WHERE email = ?";
@@ -184,8 +203,44 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
             contentValues.put("verified", "verified");
 
             long results = db.insert("user", null, contentValues);
+
+            User user = new User(1, "dummy", "dummy@gmail.com", "dummy123", "+6281314102381", "verified");
+            users.add(user);
+
             db.close();
         }
+    }
+
+    public Integer getUserId(String name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT userId FROM user WHERE name = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{name});
+
+        Integer userId = null;
+
+        if (cursor.moveToFirst()) {
+            userId = cursor.getInt(cursor.getColumnIndex("userId"));
+        }
+
+        cursor.close();
+
+        return userId;
+    }
+
+    public String getVerified(String name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT verified FROM user WHERE name = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{name});
+
+        String verified = "";
+
+        if (cursor.moveToFirst()) {
+            verified = cursor.getString(cursor.getColumnIndexOrThrow("verified"));
+        }
+
+        cursor.close();
+
+        return verified;
     }
 
     private ContentValues inputContent(Integer userId, String name, String email, String password, String phone){

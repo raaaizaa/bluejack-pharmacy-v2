@@ -13,8 +13,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.bluejackpharmacyv2.R;
+import com.example.bluejackpharmacyv2.models.User;
 import com.example.bluejackpharmacyv2.utils.UserDatabaseHelper;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,6 +25,7 @@ public class Register extends AppCompatActivity {
     private EditText nameField, emailField, passwordField, confirmPassField, phoneNumberField;
     private Button registerButton, goToLoginButton;
     private UserDatabaseHelper userDb;
+    private List<User> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +112,7 @@ public class Register extends AppCompatActivity {
         return PhoneNumberUtils.isGlobalPhoneNumber(phoneNumber);
     }
 
-    private boolean insertUserToDatabase(String name, String email, String password, String phoneNumber){
+    private void insertUserToDatabase(String name, String email, String password, String phoneNumber){
         userDb = new UserDatabaseHelper(this);
         boolean usernameExists = userDb.checkUsername(name);
         boolean emailExists = userDb.checkEmail(email);
@@ -117,25 +120,27 @@ public class Register extends AppCompatActivity {
 
         if(usernameExists){
             showToast("Username is already exists!");
-            return false;
         }else if(emailExists){
             showToast("Email is already registered!");
-            return false;
         }else if(phoneNumberExists){
             showToast("Phone Number is already registered!");
-            return false;
         }else{
             if(phoneNumber.contains("+62")){
                 userDb.insertUser(name, email, password, phoneNumber);
                 Log.i("register", "name: " + name  + " email: " + email + " password: " + password + " phoneNumber: " + phoneNumber);
+
+                User user = new User(userDb.getUserId(name), name, email, password, phoneNumber, userDb.getVerified(name));
+                users.add(user);
             }else if(!phoneNumber.contains("+62")){
                 String countryCode = "+62";
                 String fixedPhoneNumber = countryCode.concat(phoneNumber);
 
                 userDb.insertUser(name, email, password, fixedPhoneNumber);
                 Log.i("register", "name: " + name  + " email: " + email + " password: " + password + " phoneNumber: " + fixedPhoneNumber);
+
+                User user = new User(userDb.getUserId(name), name, email, password, fixedPhoneNumber, userDb.getVerified(name));
+                users.add(user);
             }
-            return true;
         }
     }
 

@@ -76,10 +76,10 @@ public class Login extends AppCompatActivity {
                 if(loginIsValid){
                     if(!isUserVerified(email)){
                         showToast("Your account hasn't been verified!");
-                        startOtp(email);
+                        startAuthentication(email);
                     }else{
                         showToast("Login Success!");
-                        startHome();
+                        startHome(email);
                     }
                 }else{
                     showToast("Invalid User!");
@@ -95,13 +95,14 @@ public class Login extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void startHome(){
+    private void startHome(String email){
         Intent intent = new Intent(this, Home.class);
+        intent.putExtra("email", email);
         startActivity(intent);
         finish();
     }
 
-    private void startOtp(String email){
+    private void startAuthentication(String email){
         Intent intent = new Intent(this, Authentication.class);
         intent.putExtra("email", email);
         startActivity(intent);
