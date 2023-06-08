@@ -36,7 +36,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="We've sent you an OTP code to have you verified."
+                android:text="We've sent you an OTP code to verify your account."
                 android:textAlignment="center"
                 android:textSize="16dp" />
 
