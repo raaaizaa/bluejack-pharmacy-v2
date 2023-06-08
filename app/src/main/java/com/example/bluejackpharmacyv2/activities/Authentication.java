@@ -32,17 +32,13 @@ import java.util.concurrent.TimeUnit;
 
 public class Authentication extends AppCompatActivity {
 
-    private String mVerificationId;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     private FirebaseAuth mAuth;
     private EditText otpField;
     private Button enterOtpButton;
-    private TextView resendOtpTextView;
-    UserDatabaseHelper userDb;
-    String email;
-    String verificationId;
-    String PHONE_NUM;
+    private UserDatabaseHelper userDb;
+    private String email, verificationId, mVerificationId, PHONE_NUM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,17 +61,16 @@ public class Authentication extends AppCompatActivity {
             @Override
             public void onVerificationFailed(@NonNull FirebaseException e) {
                 if(e instanceof FirebaseAuthInvalidCredentialsException){
-
+                    Log.i("Authentication", "FirebaseAuthInvalidCredentialsException");
                 } else if (e instanceof FirebaseTooManyRequestsException) {
-
+                    Log.i("Authentication", "FirebaseTooManyRequestsException");
                 } else if (e instanceof FirebaseAuthMissingActivityForRecaptchaException) {
-
+                    Log.i("Authentication", "FirebaseAuthMissingActivityForRecaptchaException");
                 }
             }
 
             @Override
-            public void onCodeSent(@NonNull String verificationId,
-                                   @NonNull PhoneAuthProvider.ForceResendingToken token){
+            public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken token){
                 mVerificationId = verificationId;
                 mResendToken = token;
                 showToast("Verification Code Sent!");
@@ -92,7 +87,6 @@ public class Authentication extends AppCompatActivity {
     public void onStart(){
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
     }
 
     public void startPhoneNumberVerification(String phoneNumber){
@@ -110,47 +104,26 @@ public class Authentication extends AppCompatActivity {
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
 
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            showToast("Correct!");
-                            userDb.verificationCompleted(email, "verified");
-                            startHome();
-                        } else {
-                            showToast("Incorrect!");
-                        }
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        showToast("Correct!");
+                        userDb.verificationCompleted(email, "verified");
+                        startHome();
+                    } else {
+                        showToast("Incorrect!");
                     }
                 });
-    }
-
-    public void resendVerificationCode(String phoneNumber, PhoneAuthProvider.ForceResendingToken token){
-        PhoneAuthOptions options =
-                PhoneAuthOptions.newBuilder(mAuth)
-                        .setPhoneNumber(phoneNumber)
-                        .setActivity(this)
-                        .setCallbacks(mCallbacks)
-                        .setForceResendingToken(token)
-                        .build();
-        PhoneAuthProvider.verifyPhoneNumber(options);
     }
 
     public void signInWithPhoneAuthCredential(PhoneAuthCredential credential){
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            FirebaseUser user = task.getResult().getUser();
-                        }else{
-                            if(task.getException() instanceof  FirebaseAuthInvalidCredentialsException);
-                        }
+                .addOnCompleteListener(this, task -> {
+                    if(task.isSuccessful()){
+                        FirebaseUser user = task.getResult().getUser();
+                    }else{
+                        task.getException();
                     }
                 });
-    }
-
-    public void updateUI(FirebaseUser user){
-
     }
 
     public String getVerificationId(){
@@ -160,7 +133,6 @@ public class Authentication extends AppCompatActivity {
     private void initialize(){
         otpField = findViewById(R.id.otp_field);
         enterOtpButton = findViewById(R.id.enter_otp_button);
-        resendOtpTextView = findViewById(R.id.resend_otp_textview);
 
         setListener();
     }
@@ -174,10 +146,6 @@ public class Authentication extends AppCompatActivity {
             }else{
                 verifyPhoneNumberWithCode(getVerificationId(), otpCode);
             }
-        });
-
-        resendOtpTextView.setOnClickListener(e -> {
-            resendVerificationCode(PHONE_NUM, mResendToken);
         });
     }
 

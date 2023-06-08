@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="biru_binus">#145483</color>
-    <color name="biru_binus_lighter">#42769b</color>
+    <color name="primary_blue">#2596be</color>
+    <color name="blue_but_greenish">#007c82</color>
     <color name="biru_binus_text">#b8cbd9</color>
     <color name="biru_binus_darker">#0c324e</color>
     <color name="white_slightly_darker">#e7edf2</color>
     <color name="full_white">#ffffff</color>
-    <color name="orange_binus">#FE9124</color>
+    <color name="orange_button">#ff7c1d</color>
     <color name="orange_binus_lighter">#fea74f</color>
     <color name="black">#000000</color>
+    <color name="card_outline">#d4d4d4</color>
 </resources>

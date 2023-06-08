@@ -1,26 +1,22 @@
 package com.example.bluejackpharmacyv2.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import com.example.bluejackpharmacyv2.R;
 import com.example.bluejackpharmacyv2.fragments.MedicineFragment;
 import com.example.bluejackpharmacyv2.fragments.ProfileFragment;
 import com.example.bluejackpharmacyv2.fragments.TransactionFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
 public class Home extends AppCompatActivity {
 
-    BottomNavigationView bottomNavigationView;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +60,7 @@ public class Home extends AppCompatActivity {
         Bundle args = new Bundle();
         args.putString("email", email);
         fragment.setArguments(args);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);

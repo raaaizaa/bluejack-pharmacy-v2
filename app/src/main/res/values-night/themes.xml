@@ -2,15 +2,15 @@
     <!-- Base application theme. -->
     <style name="Theme.BluejackPharmacyV2" parent="Theme.AppCompat.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/biru_binus</item>
-        <item name="colorPrimaryVariant">@color/biru_binus_lighter</item>
-        <item name="colorOnPrimary">@color/biru_binus</item>
+        <item name="colorPrimary">@color/primary_blue</item>
+        <item name="colorPrimaryVariant">@color/blue_but_greenish</item>
+        <item name="colorOnPrimary">@color/primary_blue</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/biru_binus_darker</item>
-        <item name="colorSecondaryVariant">@color/biru_binus_lighter</item>
-        <item name="colorOnSecondary">@color/biru_binus</item>
+        <item name="colorSecondaryVariant">@color/blue_but_greenish</item>
+        <item name="colorOnSecondary">@color/primary_blue</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/biru_binus_lighter</item>
+        <item name="android:statusBarColor">@color/primary_blue</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>
