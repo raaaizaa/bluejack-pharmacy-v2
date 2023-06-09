@@ -9,6 +9,8 @@
     <color name="orange_button">#ff7c1d</color>
     <color name="orange_binus_lighter">#fea74f</color>
     <color name="black">#000000</color>
+    <color name="black_slightly_brighter">#474747</color>
+    <color name="description_textcolor">#757575</color>
     <color name="card_outline">#d4d4d4</color>
     <color name="clicked_card_color">#edebeb</color>
 </resources>

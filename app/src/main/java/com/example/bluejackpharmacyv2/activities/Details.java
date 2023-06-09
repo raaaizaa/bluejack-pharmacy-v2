@@ -1,6 +1,7 @@
 package com.example.bluejackpharmacyv2.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
 import android.view.View;
@@ -37,7 +38,9 @@ public class Details extends AppCompatActivity {
     }
 
     private void setListener(){
-        backButton.setOnClickListener(e -> {
+        backButton.setForeground(ContextCompat.getDrawable(this, R.drawable.clicked_blue));
+
+        backButton.setOnClickListener(v -> {
             finish();
         });
 

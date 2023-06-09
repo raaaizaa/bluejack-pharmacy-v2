@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/full_white"
     tools:context=".fragments.ProfileFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/full_white">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -18,15 +18,15 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/profile_card"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@color/primary_blue"
-                    android:foreground="@drawable/clicked_profile"
+                    android:foreground="@drawable/clicked_blue"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -90,6 +90,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
+                    android:paddingHorizontal="12dp"
                     android:textStyle="bold"
                     android:textSize="20dp"
                     android:textColor="@color/black"
@@ -98,8 +99,11 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="12dp"
                     android:textAlignment="center"
                     android:textSize="16dp"
+                    android:textColor="@color/description_textcolor"
+                    android:paddingBottom="12dp"
                     android:text="We're currently working on spicing up the profile page!" />
 
             </LinearLayout>

@@ -68,7 +68,7 @@ public class ProfileFragment extends Fragment {
             startLogin();
         });
 
-        profileCard.setForeground(ContextCompat.getDrawable(context, R.drawable.clicked_profile));
+        profileCard.setForeground(ContextCompat.getDrawable(context, R.drawable.clicked_blue));
         profileCard.setOnClickListener(v ->{
 
         });
