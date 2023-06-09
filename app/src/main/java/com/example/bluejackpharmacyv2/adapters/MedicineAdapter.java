@@ -1,6 +1,7 @@
 package com.example.bluejackpharmacyv2.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bluejackpharmacyv2.R;
+import com.example.bluejackpharmacyv2.activities.Details;
 import com.example.bluejackpharmacyv2.models.Medicine;
 import com.squareup.picasso.Picasso;
 
@@ -21,7 +23,7 @@ import java.util.List;
 
 public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHolder> {
     private final List<Medicine> medicines;
-    private Context context;
+    private final Context context;
 
     public MedicineAdapter(List<Medicine> medicines, Context context) {
         this.medicines = medicines;
@@ -63,7 +65,8 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
         holder.medicineContainer.setForeground(ContextCompat.getDrawable(context, R.drawable.clicked_card));
 
         holder.itemView.setOnClickListener(v -> {
-
+            Intent intent = new Intent(context, Details.class);
+            context.startActivity(intent);
         });
     }
 

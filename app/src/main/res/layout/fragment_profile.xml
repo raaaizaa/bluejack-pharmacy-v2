@@ -7,92 +7,108 @@
     android:background="@color/full_white"
     tools:context=".fragments.ProfileFragment">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/primary_blue"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_weight="0.4"
-                android:src="@drawable/baseline_person_512" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/profile_name"
+                <LinearLayout
+                    android:id="@+id/profile_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="24dp"
-                    android:textColor="@color/full_white"
-                    android:text="null" />
+                    android:background="@color/primary_blue"
+                    android:foreground="@drawable/clicked_profile"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="0.4"
+                        android:src="@drawable/baseline_person_512" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/profile_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="24dp"
+                            android:textColor="@color/full_white"
+                            android:text="null" />
+
+                        <TextView
+                            android:id="@+id/profile_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="16dp"
+                            android:textColor="@color/full_white"
+                            android:text="null@gmail.com" />
+
+                        <TextView
+                            android:id="@+id/profile_phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="24dp"
+                            android:textSize="16dp"
+                            android:textColor="@color/full_white"
+                            android:text="+6216721576482" />
+
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/logout_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_styling"
+                    android:layout_margin="12dp"
+                    android:text="Logout"
+                    android:textColor="@color/full_white" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:src="@drawable/profilepage_illustration" />
 
                 <TextView
-                    android:id="@+id/profile_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:text="It seems that the profile page still appears dull..." />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
                     android:textSize="16dp"
-                    android:textColor="@color/full_white"
-                    android:text="null@gmail.com" />
-
-                <TextView
-                    android:id="@+id/profile_phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
-                    android:textSize="16dp"
-                    android:textColor="@color/full_white"
-                    android:text="+6216721576482" />
-
-
+                    android:text="We're currently working on spicing up the profile page!" />
 
             </LinearLayout>
 
-    </LinearLayout>
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/logout_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_styling"
-            android:backgroundTint="@color/orange_button"
-            android:layout_margin="12dp"
-            android:text="Logout"
-            android:textColor="@color/full_white" />
+    </androidx.core.widget.NestedScrollView>
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:src="@drawable/profilepage_illustration" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:textColor="@color/black"
-            android:text="It seems that the profile page still appears dull..." />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="16dp"
-            android:text="We're currently working on spicing up the profile page!" />
-
-    </LinearLayout>
 
 
 </FrameLayout>

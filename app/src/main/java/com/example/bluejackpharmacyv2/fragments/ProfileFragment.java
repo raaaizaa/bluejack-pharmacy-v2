@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.bluejackpharmacyv2.R;
@@ -20,6 +22,7 @@ public class ProfileFragment extends Fragment {
     View view;
     private Button logoutButton;
     private TextView profileNameTextview, profileEmailTextView, profilePhoneTextview;
+    private LinearLayout profileCard;
     Context context;
     UserDatabaseHelper userDb;
     String email;
@@ -42,6 +45,7 @@ public class ProfileFragment extends Fragment {
         profileNameTextview = view.findViewById(R.id.profile_name);
         profileEmailTextView = view.findViewById(R.id.profile_email);
         profilePhoneTextview = view.findViewById(R.id.profile_phone);
+        profileCard = view.findViewById(R.id.profile_card);
 
         logoutButton = view.findViewById(R.id.logout_button);
 
@@ -62,6 +66,11 @@ public class ProfileFragment extends Fragment {
     public void setListener(){
         logoutButton.setOnClickListener(e -> {
             startLogin();
+        });
+
+        profileCard.setForeground(ContextCompat.getDrawable(context, R.drawable.clicked_profile));
+        profileCard.setOnClickListener(v ->{
+
         });
     }
 
