@@ -5,9 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bluejackpharmacyv2.R;
@@ -28,6 +31,8 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private ImageView medicineImage;
         private TextView medicineName, medicineManufacturer, medicinePrice;
+        private CardView medicineCard;
+        private LinearLayout medicineContainer;
 
         public ViewHolder(View view){
             super(view);
@@ -35,6 +40,8 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
             medicineName = view.findViewById(R.id.medicine_name);
             medicineManufacturer = view.findViewById(R.id.medicine_manufacturer);
             medicinePrice = view.findViewById(R.id.medicine_price);
+            medicineCard = view.findViewById(R.id.medicine_card);
+            medicineContainer = view.findViewById(R.id.medicine_container);
         }
     }
 
@@ -53,10 +60,14 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
         holder.medicinePrice.setText(String.valueOf(medicine.getPrice()));
         Picasso.get().load(medicine.getImage()).into(holder.medicineImage);
 
-        holder.itemView.setOnClickListener(e -> {
+        holder.medicineContainer.setForeground(ContextCompat.getDrawable(context, R.drawable.clicked_card));
+
+        holder.itemView.setOnClickListener(v -> {
 
         });
     }
+
+
 
     @Override
     public int getItemCount() {

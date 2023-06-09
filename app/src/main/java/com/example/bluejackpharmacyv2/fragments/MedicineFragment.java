@@ -2,8 +2,11 @@ package com.example.bluejackpharmacyv2.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,6 +49,7 @@ public class MedicineFragment extends Fragment {
     private UserDatabaseHelper userDb;
     private String email;
     private ProgressBar progressBar;
+    private CardView videoCard;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,8 +73,20 @@ public class MedicineFragment extends Fragment {
         userDb = new UserDatabaseHelper(context);
         greetingTextview = view.findViewById(R.id.greeting_text);
         progressBar = view.findViewById(R.id.progress_bar);
+        videoCard = view.findViewById(R.id.video_card);
         String name = userDb.getName(email);
         greetingTextview.setText("Hi, " + name + "!");
+
+        setListener();
+    }
+
+    private void setListener(){
+        videoCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=c06dTj0v0sM")));
+            }
+        });
     }
 
     private void fetchJson(){

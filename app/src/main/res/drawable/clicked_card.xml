@@ -1,0 +1,5 @@
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/clicked_card_color"
+    android:alpha="-2">
+
+</ripple>
