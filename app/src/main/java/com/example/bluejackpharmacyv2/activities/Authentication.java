@@ -10,16 +10,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bluejackpharmacyv2.R;
 import com.example.bluejackpharmacyv2.utils.UserDatabaseHelper;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthMissingActivityForRecaptchaException;
@@ -32,13 +28,16 @@ import java.util.concurrent.TimeUnit;
 
 public class Authentication extends AppCompatActivity {
 
-    private PhoneAuthProvider.ForceResendingToken mResendToken;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     private FirebaseAuth mAuth;
     private EditText otpField;
     private Button enterOtpButton;
     private UserDatabaseHelper userDb;
     private String email, verificationId, mVerificationId, PHONE_NUM;
+
+    public Authentication(String verificationId) {
+        this.verificationId = verificationId;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +71,6 @@ public class Authentication extends AppCompatActivity {
             @Override
             public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken token){
                 mVerificationId = verificationId;
-                mResendToken = token;
                 showToast("Verification Code Sent!");
                 Log.d(TAG, "onCodeSent:" + verificationId);
             }

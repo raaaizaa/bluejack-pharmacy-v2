@@ -28,6 +28,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback{
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.maps);
 
+        assert mapFragment != null;
         mapFragment.getMapAsync(this);
     }
 

@@ -36,6 +36,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
                 android:text="We've sent you an OTP code to verify your account."
                 android:textColor="@color/description_textcolor"
                 android:textAlignment="center"

@@ -25,7 +25,11 @@ public class Register extends AppCompatActivity {
     private EditText nameField, emailField, passwordField, confirmPassField, phoneNumberField;
     private Button registerButton, goToLoginButton;
     private UserDatabaseHelper userDb;
-    private List<User> users;
+    private final List<User> users;
+
+    public Register(List<User> users) {
+        this.users = users;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,7 +135,7 @@ public class Register extends AppCompatActivity {
 
                 User user = new User(userDb.getUserId(name), name, email, password, phoneNumber, userDb.getVerified(name));
                 users.add(user);
-            }else if(!phoneNumber.contains("+62")){
+            }else{
                 String countryCode = "+62";
                 String fixedPhoneNumber = countryCode.concat(phoneNumber);
 

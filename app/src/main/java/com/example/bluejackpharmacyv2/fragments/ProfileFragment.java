@@ -55,8 +55,8 @@ public class ProfileFragment extends Fragment {
 
     public void setInfo(String email){
         userDb = new UserDatabaseHelper(context);
-        String profileName = userDb.getName(email).toString();
-        String profilePhone = userDb.getPhoneNumber(email).toString();
+        String profileName = userDb.getName(email);
+        String profilePhone = userDb.getPhoneNumber(email);
 
         profileNameTextview.setText(profileName);
         profileEmailTextView.setText(email);
@@ -64,9 +64,7 @@ public class ProfileFragment extends Fragment {
     }
 
     public void setListener(){
-        logoutButton.setOnClickListener(e -> {
-            startLogin();
-        });
+        logoutButton.setOnClickListener(e -> startLogin());
 
         profileCard.setForeground(ContextCompat.getDrawable(context, R.drawable.clicked_blue));
         profileCard.setOnClickListener(v ->{

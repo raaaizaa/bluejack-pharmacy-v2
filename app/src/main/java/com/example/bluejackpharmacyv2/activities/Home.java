@@ -8,7 +8,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageButton;
 
 import com.example.bluejackpharmacyv2.R;

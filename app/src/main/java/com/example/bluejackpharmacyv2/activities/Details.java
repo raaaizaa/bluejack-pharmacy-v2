@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -40,9 +39,7 @@ public class Details extends AppCompatActivity {
     private void setListener(){
         backButton.setForeground(ContextCompat.getDrawable(this, R.drawable.clicked_blue));
 
-        backButton.setOnClickListener(v -> {
-            finish();
-        });
+        backButton.setOnClickListener(v -> finish());
 
         minButton.setOnClickListener(v -> {
             if(count == 0){

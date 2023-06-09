@@ -59,6 +59,7 @@
                         android:textSize="14dp"
                         android:paddingStart="20dp"
                         android:paddingBottom="12dp"
+                        android:fontFamily="sans-serif-light"
                         android:textColor="@color/black"
                         android:text="Wishing you good health and a great experience with us." />
 
@@ -125,10 +126,10 @@
                         android:paddingHorizontal="14dp"
                         android:paddingTop="4dp"
                         android:paddingBottom="10dp"
+                        android:fontFamily="sans-serif-light"
                         android:text="4 min video"
                         android:textColor="@color/black_slightly_brighter"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
@@ -152,10 +153,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="20dp"
-                            android:textStyle="bold"
                             android:textColor="@color/full_white"
                             android:paddingHorizontal="12dp"
                             android:paddingTop="12dp"
+                            android:fontFamily="sans-serif-light"
                             android:text="Explore our medicines for a healthier you." />
 
                         <ProgressBar
