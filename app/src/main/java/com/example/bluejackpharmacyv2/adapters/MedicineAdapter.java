@@ -65,8 +65,7 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
         holder.medicineContainer.setForeground(ContextCompat.getDrawable(context, R.drawable.clicked_card));
 
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, Details.class);
-            context.startActivity(intent);
+
         });
     }
 

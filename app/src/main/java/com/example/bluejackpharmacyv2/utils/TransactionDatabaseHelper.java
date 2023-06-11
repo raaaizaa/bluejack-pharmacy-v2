@@ -47,7 +47,7 @@ public class TransactionDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String selectMax = "SELECT MAX(transactionId) FROM transactions WHERE userId = ?";
         Cursor cursor = db.rawQuery(selectMax, null);
-        Integer latestTransactionId = 0;
+        Integer latestTransactionId = 2023001;
 
         if(cursor.moveToFirst()){
             latestTransactionId = cursor.getInt(0);

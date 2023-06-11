@@ -7,16 +7,28 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bluejackpharmacyv2.R;
+import com.example.bluejackpharmacyv2.utils.TransactionDatabaseHelper;
+import com.example.bluejackpharmacyv2.utils.UserDatabaseHelper;
+import com.squareup.picasso.Picasso;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class Details extends AppCompatActivity {
 
     private Integer count = 0;
     private EditText counterField;
+    private TextView medicineNameTextview, medicinePriceTextview, manufacturerTextview, medicineDescriptionTextview;
+    private ImageView medicineImageview;
     private ImageButton backButton;
     private Button addToCartButton, minButton, plusButton;
+    private TransactionDatabaseHelper transactionDb;
+    private UserDatabaseHelper userDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +39,13 @@ public class Details extends AppCompatActivity {
     }
 
     private void initialize(){
+        medicineNameTextview = findViewById(R.id.medicine_name_detail);
+        medicinePriceTextview = findViewById(R.id.medicine_price_detail);
+        manufacturerTextview = findViewById(R.id.medicine_manufacturer_detail);
+        medicineDescriptionTextview = findViewById(R.id.medicine_description_detail);
+        medicineImageview = findViewById(R.id.medicine_image_detail);
+        setDetails();
+
         backButton = findViewById(R.id.back_button);
         counterField = findViewById(R.id. counter_field);
         addToCartButton = findViewById(R.id.add_to_cart_button);
@@ -58,8 +77,25 @@ public class Details extends AppCompatActivity {
 
         addToCartButton.setOnClickListener(e -> {
             String counter = counterField.getText().toString();
+            addToTransaction(email, medicineId, counter);
             showToast("Your count = " + counter);
         });
+    }
+
+    private void setDetails(){
+
+    }
+
+    private void addToTransaction(String email, Integer medicineId, String counter){
+        transactionDb = new TransactionDatabaseHelper(this);
+        userDb = new UserDatabaseHelper(this);
+        Integer userId = userDb.getUserId(getIntent().getStringExtra(email));
+        Integer quantity = Integer.parseInt(counter);
+
+        Calendar calendar = Calendar.getInstance();
+        Date currentDate = calendar.getTime();
+
+        transactionDb.newTransaction(medicineId, userId, currentDate, quantity);
     }
 
     private void showToast(String message){
