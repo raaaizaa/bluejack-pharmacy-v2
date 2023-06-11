@@ -1,5 +1,7 @@
 package com.example.bluejackpharmacyv2.models;
 
+import android.util.Log;
+
 public class User {
     Integer userId;
     String name, email, password, phone, isVerified;
@@ -11,6 +13,8 @@ public class User {
         this.password = password;
         this.phone = phone;
         this.isVerified = isVerified;
+
+        Log.i("tes", userId + name + email + password + phone + isVerified);
     }
 
     public Integer getUserId() {

@@ -35,10 +35,6 @@ public class Authentication extends AppCompatActivity {
     private UserDatabaseHelper userDb;
     private String email, verificationId, mVerificationId, PHONE_NUM;
 
-    public Authentication(String verificationId) {
-        this.verificationId = verificationId;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -149,6 +145,7 @@ public class Authentication extends AppCompatActivity {
 
     private void startHome(){
         Intent intent = new Intent(this, Home.class);
+        intent.putExtra("email", email);
         startActivity(intent);
     }
 

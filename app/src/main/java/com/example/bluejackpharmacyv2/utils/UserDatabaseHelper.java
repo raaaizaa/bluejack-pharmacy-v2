@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.example.bluejackpharmacyv2.models.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDatabaseHelper extends SQLiteOpenHelper {
@@ -191,6 +192,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
     public void insertDummyUser(){
         SQLiteDatabase db = this.getWritableDatabase();
         boolean userExists = checkUser("dummy", "dummy123");
+        List<User> users = new ArrayList<>();
 
         if(!userExists){
             ContentValues contentValues = new ContentValues();
@@ -206,6 +208,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
 
             User user = new User(1, "dummy", "dummy@gmail.com", "dummy123", "+6281314102381", "verified");
             users.add(user);
+            Log.i("tes", String.valueOf(users));
 
             db.close();
         }
@@ -251,7 +254,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("email", email);
         contentValues.put("password", password);
         contentValues.put("phone", phone);
-        contentValues.put("verified", 0);
+        contentValues.put("verified", "0");
 
         return contentValues;
     }

@@ -16,6 +16,7 @@ import com.example.bluejackpharmacyv2.R;
 import com.example.bluejackpharmacyv2.models.User;
 import com.example.bluejackpharmacyv2.utils.UserDatabaseHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,11 +26,7 @@ public class Register extends AppCompatActivity {
     private EditText nameField, emailField, passwordField, confirmPassField, phoneNumberField;
     private Button registerButton, goToLoginButton;
     private UserDatabaseHelper userDb;
-    private final List<User> users;
-
-    public Register(List<User> users) {
-        this.users = users;
-    }
+    private List<User> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +57,7 @@ public class Register extends AppCompatActivity {
             String confirmPass = confirmPassField.getText().toString();
             String phoneNumber = phoneNumberField.getText().toString();
 
-            if(isAnyInputEmpty(email, email, password, confirmPass, phoneNumber)){
+            if(isAnyInputEmpty(name, email, password, confirmPass, phoneNumber)){
                 showToast("All fields must be filled!");
             }else if(!isUsernameLengthValid(name)){
                 showToast("Name must be at least 5 characters!");
@@ -118,6 +115,7 @@ public class Register extends AppCompatActivity {
 
     private void insertUserToDatabase(String name, String email, String password, String phoneNumber){
         userDb = new UserDatabaseHelper(this);
+        List<User> users = new ArrayList<>();
         boolean usernameExists = userDb.checkUsername(name);
         boolean emailExists = userDb.checkEmail(email);
         boolean phoneNumberExists = userDb.checkPhoneNumber(phoneNumber);
@@ -131,7 +129,7 @@ public class Register extends AppCompatActivity {
         }else{
             if(phoneNumber.contains("+62")){
                 userDb.insertUser(name, email, password, phoneNumber);
-                Log.i("register", "name: " + name  + " email: " + email + " password: " + password + " phoneNumber: " + phoneNumber);
+                Log.i("register", "insertUserToDatabase: name: " + name  + " email: " + email + " password: " + password + " phoneNumber: " + phoneNumber);
 
                 User user = new User(userDb.getUserId(name), name, email, password, phoneNumber, userDb.getVerified(name));
                 users.add(user);
@@ -140,7 +138,7 @@ public class Register extends AppCompatActivity {
                 String fixedPhoneNumber = countryCode.concat(phoneNumber);
 
                 userDb.insertUser(name, email, password, fixedPhoneNumber);
-                Log.i("register", "name: " + name  + " email: " + email + " password: " + password + " phoneNumber: " + fixedPhoneNumber);
+                Log.i("register", "insertUserToDatabase: name: " + name  + " email: " + email + " password: " + password + " phoneNumber: " + fixedPhoneNumber);
 
                 User user = new User(userDb.getUserId(name), name, email, password, fixedPhoneNumber, userDb.getVerified(name));
                 users.add(user);

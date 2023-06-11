@@ -81,12 +81,7 @@ public class MedicineFragment extends Fragment {
     }
 
     private void setListener(){
-        videoCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=c06dTj0v0sM")));
-            }
-        });
+        videoCard.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=c06dTj0v0sM"))));
     }
 
     private void fetchJson(){
@@ -117,12 +112,11 @@ public class MedicineFragment extends Fragment {
                             progressBar.setVisibility(View.GONE);
                         }
                     } catch (JSONException e) {
-                        Log.i("fetchJson", "nyampe sini");
                         e.printStackTrace();
                     }
 
                     for(Medicine medicine : medicines){
-                        Log.i("ASD", medicine.getMedicineName());
+                        Log.i("MedicineFragment", "fetchJson: " + medicine.getMedicineName());
                     }
                 },
                 Throwable::printStackTrace

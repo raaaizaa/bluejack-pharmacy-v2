@@ -10,7 +10,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.bluejackpharmacyv2.R;
+import com.example.bluejackpharmacyv2.models.User;
 import com.example.bluejackpharmacyv2.utils.UserDatabaseHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Login extends AppCompatActivity {
 
@@ -23,6 +27,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        List<User> users = new ArrayList<>();
         initialize();
     }
 
