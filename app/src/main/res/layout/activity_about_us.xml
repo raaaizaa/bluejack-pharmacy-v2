@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_slightly_darker"
+    android:orientation="vertical"
+    tools:context=".activities.AboutUs">
+
+    <include layout="@layout/layout_top_navbar_back" android:id="@+id/top_navbar"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_navbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/full_white">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:paddingHorizontal="24dp"
+                    android:paddingTop="24dp"
+                    android:paddingBottom="12dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:text="About Us" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:paddingHorizontal="24dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="12dp"
+                    android:textSize="16dp"
+                    android:justificationMode="inter_word"
+                    android:textColor="@color/description_textcolor"
+                    android:text="Bluejack Pharmacy is a pharmacy founded by the Bluejackets Community. Today, it stands as one of the best pharmacies in Indonesia. Currently, they are trying to reach more customers by creating a mobile application based on Android operating system that can be downloaded by customers, thus increasing Bluejack Pharmacy’s popularity"/>
+
+                <Button
+                    android:id="@+id/map_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="36dp"
+                    android:background="@drawable/button_styling_add_to_cart"
+                    android:textColor="@color/full_white"
+                    android:text="Locate Us"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

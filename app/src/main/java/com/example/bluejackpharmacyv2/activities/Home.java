@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
 
@@ -60,7 +61,7 @@ public class Home extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.navigation_medicine);
 
         infoButton.setForeground(ContextCompat.getDrawable(this, R.drawable.clicked_blue));
-        infoButton.setOnClickListener(v -> startAboutUs());
+        infoButton.setOnClickListener(e -> startAboutUs());
     }
 
     private void replaceFragment(Fragment fragment, String email){
@@ -75,6 +76,7 @@ public class Home extends AppCompatActivity {
     }
 
     private void startAboutUs(){
-
+        Intent intent = new Intent(this, AboutUs.class);
+        startActivity(intent);
     }
 }

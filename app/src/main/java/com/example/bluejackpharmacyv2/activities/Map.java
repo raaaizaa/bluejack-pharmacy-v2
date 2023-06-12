@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageButton;
 
 import com.example.bluejackpharmacyv2.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -20,6 +21,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback{
     private final float ZOOM_LEVEL = 15.0f;
     private final double LAT = -6.20201, LONG = 106.78113;
     private final String MARKER_NAME = "Bluejack Pharmacy";
+    private ImageButton backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,16 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback{
 
         assert mapFragment != null;
         mapFragment.getMapAsync(this);
+    }
+
+    private void initialize(){
+        backButton = findViewById(R.id.back_button);
+
+        setListener();
+    }
+
+    private void setListener(){
+        backButton.setOnClickListener(e -> finish());
     }
 
     @Override

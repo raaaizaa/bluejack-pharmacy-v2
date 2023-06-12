@@ -77,7 +77,7 @@ public class Details extends AppCompatActivity {
 
         addToCartButton.setOnClickListener(e -> {
             String counter = counterField.getText().toString();
-            addToTransaction(email, medicineId, counter);
+            //addToTransaction(email, medicineId, counter);
             showToast("Your count = " + counter);
         });
     }

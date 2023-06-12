@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bluejackpharmacyv2.R;
+import com.example.bluejackpharmacyv2.activities.Authentication;
 import com.example.bluejackpharmacyv2.activities.Details;
 import com.example.bluejackpharmacyv2.models.Medicine;
 import com.squareup.picasso.Picasso;
@@ -65,6 +66,14 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
         holder.medicineContainer.setForeground(ContextCompat.getDrawable(context, R.drawable.clicked_card));
 
         holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, Details.class);
+            intent.putExtra("medicName", medicine.getMedicineName());
+            intent.putExtra("medicManufact", medicine.getManufacturer());
+            intent.putExtra("medicPrice", medicine.getPrice());
+            intent.putExtra("medicImage", medicine.getImage());
+            intent.putExtra("medicDetails", medicine.getDescription());
+            intent.putExtra("medicID", medicine.getMedicineId());
+            context.startActivity(intent);
 
         });
     }
