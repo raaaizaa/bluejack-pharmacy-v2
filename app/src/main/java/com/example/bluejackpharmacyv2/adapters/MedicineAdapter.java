@@ -25,10 +25,12 @@ import java.util.List;
 public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHolder> {
     private final List<Medicine> medicines;
     private final Context context;
+    private String email;
 
-    public MedicineAdapter(List<Medicine> medicines, Context context) {
+    public MedicineAdapter(List<Medicine> medicines, Context context, String email) {
         this.medicines = medicines;
         this.context = context;
+        this.email = email;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
@@ -80,6 +82,7 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
             intent.putExtra("medicinePrice", medicinePrice);
             intent.putExtra("medicineImage", medicineImage);
             intent.putExtra("medicineDescription", medicineDescription);
+            intent.putExtra("userEmail", email);
             context.startActivity(intent);
         });
     }

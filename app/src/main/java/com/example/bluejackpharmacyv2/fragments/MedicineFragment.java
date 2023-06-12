@@ -64,7 +64,7 @@ public class MedicineFragment extends Fragment {
         }
 
         initialize(email);
-        fetchJson();
+        fetchJson(email);
         return view;
     }
 
@@ -84,7 +84,7 @@ public class MedicineFragment extends Fragment {
         videoCard.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=c06dTj0v0sM"))));
     }
 
-    private void fetchJson(){
+    private void fetchJson(String email){
         medicineDb = new MedicineDatabaseHelper(context);
         requestQueue = Volley.newRequestQueue(context);
 
@@ -108,7 +108,7 @@ public class MedicineFragment extends Fragment {
                             Medicine medicine = new Medicine(getMedicineIdFromDatabase(medicineName), medicinePrice, medicineName, manufacturer, medicineImage, medicineDescription);
                             medicines.add(medicine);
 
-                            setRecyclerview(medicines, context);
+                            setRecyclerview(medicines, context, email);
                             progressBar.setVisibility(View.GONE);
                         }
                     } catch (JSONException e) {
@@ -134,8 +134,8 @@ public class MedicineFragment extends Fragment {
         return medicineDb.getMedicineId(medicineName);
     }
 
-    public void setRecyclerview(List medicines, Context context){
-        adapter = new MedicineAdapter(medicines, context);
+    public void setRecyclerview(List medicines, Context context, String email){
+        adapter = new MedicineAdapter(medicines, context, email);
         medicineRV.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white_slightly_darker"
+    android:orientation="vertical">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textAlignment="textEnd"
+            android:textColor="@color/black"
+            android:layout_weight="0.9"
+            android:text="Order ID: " />
+        
+        <TextView
+            android:id="@+id/id_transaction"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:layout_weight="0.1"
+            android:text="2" />
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/full_white"
+        android:orientation="vertical">
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            
+            <ImageView
+                android:id="@+id/medicine_image_transaction"
+                android:layout_width="125dp"
+                android:layout_height="125dp" />
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+                
+                <TextView
+                    android:id="@+id/date_transaction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black_slightly_brighter"
+                    android:textSize="14dp"
+                    android:text="transaction date" />
+                
+                <TextView
+                    android:id="@+id/medicine_name_transaction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"
+                    android:text="medicine name" />
+
+                <TextView
+                    android:id="@+id/medicine_manufacturer_transaction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black_slightly_brighter"
+                    android:textSize="14dp"
+                    android:text="manufacturer" />
+
+                <TextView
+                    android:id="@+id/medicine_price_transaction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="16dp"
+                    android:text="price" />
+
+                <TextView
+                    android:id="@+id/medicine_quantity_transaction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black_slightly_brighter"
+                    android:textSize="14dp"
+                    android:text="quantity" />
+                
+            </LinearLayout>
+            
+        </LinearLayout>
+        
+    </LinearLayout>
+    
+</LinearLayout>

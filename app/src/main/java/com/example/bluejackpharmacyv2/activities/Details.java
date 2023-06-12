@@ -77,13 +77,22 @@ public class Details extends AppCompatActivity {
 
         addToCartButton.setOnClickListener(e -> {
             String counter = counterField.getText().toString();
-            //addToTransaction(email, medicineId, counter);
-            showToast("Your count = " + counter);
+
+            if(counter.equals("0")){
+                showToast("Quantity must be more than 0!");
+            }else if(counter.isEmpty()){
+                showToast("Quantity must be filled!");
+            }else{
+                String email = getIntent().getStringExtra("userEmail");
+                Integer medicineId = Integer.valueOf(getIntent().getStringExtra("medicineId"));
+
+                addToTransaction(email, medicineId, counter);
+            }
+
         });
     }
 
     private void setDetails(){
-        String medicineId = getIntent().getStringExtra("medicineId");
         String medicineName = getIntent().getStringExtra("medicineName");
         String manufacturer = getIntent().getStringExtra("manufacturer");
         String medicinePrice = getIntent().getStringExtra("medicinePrice");
