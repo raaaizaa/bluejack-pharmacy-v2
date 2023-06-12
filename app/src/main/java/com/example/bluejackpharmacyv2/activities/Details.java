@@ -83,7 +83,19 @@ public class Details extends AppCompatActivity {
     }
 
     private void setDetails(){
+        String medicineId = getIntent().getStringExtra("medicineId");
+        String medicineName = getIntent().getStringExtra("medicineName");
+        String manufacturer = getIntent().getStringExtra("manufacturer");
+        String medicinePrice = getIntent().getStringExtra("medicinePrice");
+        String medicineImage = getIntent().getStringExtra("medicineImage");
+        String medicineDescription = getIntent().getStringExtra("medicineDescription");
 
+        medicineNameTextview.setText(medicineName);
+        manufacturerTextview.setText(manufacturer);
+        medicinePriceTextview.setText(medicinePrice);
+        medicineDescriptionTextview.setText(medicineDescription);
+
+        Picasso.get().load(medicineImage).into(medicineImageview);
     }
 
     private void addToTransaction(String email, Integer medicineId, String counter){

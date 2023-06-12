@@ -66,15 +66,21 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
         holder.medicineContainer.setForeground(ContextCompat.getDrawable(context, R.drawable.clicked_card));
 
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, Details.class);
-            intent.putExtra("medicName", medicine.getMedicineName());
-            intent.putExtra("medicManufact", medicine.getManufacturer());
-            intent.putExtra("medicPrice", medicine.getPrice());
-            intent.putExtra("medicImage", medicine.getImage());
-            intent.putExtra("medicDetails", medicine.getDescription());
-            intent.putExtra("medicID", medicine.getMedicineId());
-            context.startActivity(intent);
+            String medicineId = String.valueOf(medicine.getMedicineId());
+            String medicineName = medicine.getMedicineName();
+            String manufacturer = medicine.getManufacturer();
+            String medicinePrice = String.valueOf(medicine.getPrice());
+            String medicineImage = medicine.getImage();
+            String medicineDescription = medicine.getDescription();
 
+            Intent intent = new Intent(context, Details.class);
+            intent.putExtra("medicineId", medicineId);
+            intent.putExtra("medicineName", medicineName);
+            intent.putExtra("manufacturer", manufacturer);
+            intent.putExtra("medicinePrice", medicinePrice);
+            intent.putExtra("medicineImage", medicineImage);
+            intent.putExtra("medicineDescription", medicineDescription);
+            context.startActivity(intent);
         });
     }
 

@@ -2,6 +2,7 @@ package com.example.bluejackpharmacyv2.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -32,6 +33,8 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback{
 
         assert mapFragment != null;
         mapFragment.getMapAsync(this);
+
+        initialize();
     }
 
     private void initialize(){
@@ -41,6 +44,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback{
     }
 
     private void setListener(){
+        backButton.setForeground(ContextCompat.getDrawable(this, R.drawable.clicked_blue));
         backButton.setOnClickListener(e -> finish());
     }
 
