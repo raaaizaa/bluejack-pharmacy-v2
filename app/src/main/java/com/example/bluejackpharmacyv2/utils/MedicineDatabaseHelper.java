@@ -1,11 +1,14 @@
 package com.example.bluejackpharmacyv2.utils;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import com.example.bluejackpharmacyv2.models.Medicine;
 
 public class MedicineDatabaseHelper extends SQLiteOpenHelper {
 
@@ -122,6 +125,30 @@ public class MedicineDatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
 
         return manufacturer;
+    }
+
+    @SuppressLint("Range")
+    public Medicine getMedicineById(int medicineId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT * FROM medicine WHERE medicineId = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(medicineId)});
+
+        Medicine medicine = null;
+
+        if (cursor.moveToFirst()) {
+            String medicineName = cursor.getString(cursor.getColumnIndex("medicineName"));
+            String manufacturer = cursor.getString(cursor.getColumnIndex("manufacturer"));
+            int price = cursor.getInt(cursor.getColumnIndex("price"));
+            String image = cursor.getString(cursor.getColumnIndex("image"));
+            String description = cursor.getString(cursor.getColumnIndex("description"));
+
+            medicine = new Medicine(medicineId, price, medicineName, manufacturer, image, description);
+        }
+
+        cursor.close();
+
+        return medicine;
     }
 
 

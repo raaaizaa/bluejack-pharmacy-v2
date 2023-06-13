@@ -1,5 +1,6 @@
 package com.example.bluejackpharmacyv2.utils;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -7,14 +8,22 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.bluejackpharmacyv2.models.Medicine;
+import com.example.bluejackpharmacyv2.models.Transaction;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class TransactionDatabaseHelper extends SQLiteOpenHelper {
+    private MedicineDatabaseHelper medicineDb;
 
     public static final String TRANSACTION_DB = "Transaction.db";
+    Context context;
 
-    public TransactionDatabaseHelper(Context context){
+    public TransactionDatabaseHelper(Context context, MedicineDatabaseHelper medicineDb){
         super(context, TRANSACTION_DB, null, 1);
+        this.medicineDb = medicineDb;
     }
 
     @Override
@@ -68,6 +77,43 @@ public class TransactionDatabaseHelper extends SQLiteOpenHelper {
         return newTransactionId;
     }
 
+    @SuppressLint("Range")
+    public List<Transaction> getAllTransactions(Integer userId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectTransactionQuery = "SELECT * FROM transactions WHERE userId = ?";
+        Cursor transactionCursor = db.rawQuery(selectTransactionQuery, new String[]{String.valueOf(userId)});
+
+        List<Transaction> transactions = new ArrayList<>();
+
+        if (transactionCursor.moveToFirst()) {
+            do {
+                String transactionDate = transactionCursor.getString(transactionCursor.getColumnIndex("transactionDate"));
+                int transactionId = transactionCursor.getInt(transactionCursor.getColumnIndex("transactionId"));
+                int medicineId = transactionCursor.getInt(transactionCursor.getColumnIndex("medicineId"));
+                int quantity = transactionCursor.getInt(transactionCursor.getColumnIndex("quantity"));
+
+                // Use the medicineDbHelper to query the medicine table
+                Medicine medicine = medicineDb.getMedicineById(medicineId);
+
+                if (medicine != null) {
+                    String medicineImage = medicine.getImage();
+                    String medicineName = medicine.getMedicineName();
+                    String manufacturer = medicine.getManufacturer();
+                    int medicinePrice = medicine.getPrice();
+
+                    Transaction transaction = new Transaction(medicineImage, medicineName, manufacturer, transactionId, medicinePrice, medicineId, userId, quantity, transactionDate);
+                    transactions.add(transaction);
+                }
+            } while (transactionCursor.moveToNext());
+        }
+
+        transactionCursor.close();
+
+        return transactions;
+    }
+
+
+    @SuppressLint("Range")
     public Integer getTransactionId(Integer medicineId, Integer userId, Date transactionDate){
         SQLiteDatabase db = this.getWritableDatabase();
         String selectQuery = "SELECT transactionId FROM transactions WHERE medicineId = ? AND userId = ? OR transactionDate = ?";
@@ -84,6 +130,7 @@ public class TransactionDatabaseHelper extends SQLiteOpenHelper {
         return transactionId;
     }
 
+    @SuppressLint("Range")
     public Integer getMedicineId(Integer userId, Date transactionDate){
         SQLiteDatabase db = this.getWritableDatabase();
         String selectQuery = "SELECT medicineId FROM transactions WHERE userId = ? AND transactionDate = ?";
@@ -100,6 +147,7 @@ public class TransactionDatabaseHelper extends SQLiteOpenHelper {
         return medicineId;
     }
 
+    @SuppressLint("Range")
     public Integer getTotalPrice(Integer userId, Integer medicineId, Date transactionDate, Integer price){
         SQLiteDatabase db = this.getWritableDatabase();
         String selectQuery = "SELECT quantity FROM transactions WHERE userId = ? AND medicineId = ? OR transactionDate = ?";

@@ -5,9 +5,9 @@ import java.util.Date;
 public class Transaction {
     String medicineImage, medicineName, manufacturer;
     Integer transactionId, medicineId, userId, quantity, price;
-    Date transactionDate;
+    String transactionDate;
 
-    public Transaction(String medicineImage, String medicineName, String manufacturer, Integer transactionId, Integer price, Integer medicineId, Integer userId, Integer quantity, Date transactionDate) {
+    public Transaction(String medicineImage, String medicineName, String manufacturer, Integer transactionId, Integer price, Integer medicineId, Integer userId, Integer quantity, String transactionDate) {
         this.medicineImage = medicineImage;
         this.medicineName = medicineName;
         this.manufacturer = manufacturer;
@@ -83,11 +83,11 @@ public class Transaction {
         this.quantity = quantity;
     }
 
-    public Date getTransactionDate() {
+    public String getTransactionDate() {
         return transactionDate;
     }
 
-    public void setTransactionDate(Date transactionDate) {
+    public void setTransactionDate(String transactionDate) {
         this.transactionDate = transactionDate;
     }
 }

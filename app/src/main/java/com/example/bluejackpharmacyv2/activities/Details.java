@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bluejackpharmacyv2.R;
+import com.example.bluejackpharmacyv2.fragments.TransactionFragment;
 import com.example.bluejackpharmacyv2.models.Transaction;
 import com.example.bluejackpharmacyv2.utils.MedicineDatabaseHelper;
 import com.example.bluejackpharmacyv2.utils.TransactionDatabaseHelper;
@@ -43,6 +44,7 @@ public class Details extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
+        transactions = new ArrayList<>();
         String email = getIntent().getStringExtra("userEmail");
         Log.i("userEmail: ", email);
 
@@ -126,9 +128,8 @@ public class Details extends AppCompatActivity {
     }
 
     private void addToTransaction(String email, Integer medicineId, String counter){
-        transactionDb = new TransactionDatabaseHelper(this);
+        transactionDb = new TransactionDatabaseHelper(this, medicineDb);
         userDb = new UserDatabaseHelper(this);
-        transactions = new ArrayList<>();
 
         Log.i("Details: addToTransaction", "email: " + email);
         Integer userId = userDb.getUserId(email);
@@ -140,19 +141,20 @@ public class Details extends AppCompatActivity {
         Date currentDate = calendar.getTime();
 
         transactionDb.newTransaction(medicineId, userId, currentDate, quantity);
-        Transaction transaction = new Transaction(getMedicineImage(userId, currentDate), getManufacturer(medicineId), getMedicineName(medicineId), getTransactionId(medicineId, userId, currentDate), getTotalPrice(userId, medicineId, currentDate, price), medicineId, userId, quantity, currentDate);
+        Transaction transaction = new Transaction(getMedicineImage(userId, currentDate), getManufacturer(medicineId), getMedicineName(medicineId), getTransactionId(medicineId, userId, currentDate), getTotalPrice(userId, medicineId, currentDate, price), medicineId, userId, quantity, currentDate.toString());
         transactions.add(transaction);
+        Log.i("jumlah transaction: ", "nih " + String.valueOf(transactions.size()));
     }
 
     private Integer getTransactionId(Integer medicineId, Integer userId, Date transactionDate){
-        transactionDb = new TransactionDatabaseHelper(this);
+        transactionDb = new TransactionDatabaseHelper(this, medicineDb);
         Integer transactionId = transactionDb.getTransactionId(medicineId, userId, transactionDate);
 
         return transactionId;
     }
 
     private String getMedicineImage(Integer userId, Date transactionDate){
-        transactionDb = new TransactionDatabaseHelper(this);
+        transactionDb = new TransactionDatabaseHelper(this, medicineDb);
         String medicineImage = String.valueOf(transactionDb.getMedicineId(userId, transactionDate));
 
         return medicineImage;
@@ -173,7 +175,7 @@ public class Details extends AppCompatActivity {
     }
 
     private Integer getTotalPrice(Integer userId, Integer medicineId, Date transactionDate, Integer price){
-        transactionDb = new TransactionDatabaseHelper(this);
+        transactionDb = new TransactionDatabaseHelper(this, medicineDb);
         Integer totalPrice = transactionDb.getTotalPrice(userId, medicineId, transactionDate, price);
 
         return totalPrice;
@@ -182,4 +184,5 @@ public class Details extends AppCompatActivity {
     private void showToast(String message){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
+
 }

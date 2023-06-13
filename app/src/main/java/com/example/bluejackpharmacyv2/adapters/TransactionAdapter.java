@@ -1,6 +1,7 @@
 package com.example.bluejackpharmacyv2.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,9 +65,10 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         holder.medicineNameTextview.setText(transaction.getMedicineName());
         holder.transactionDateTextview.setText(String.valueOf(transaction.getTransactionDate()));
         holder.manufacturerTextview.setText(transaction.getManufacturer());
-        holder.priceTextview.setText(transaction.getPrice());
-        holder.quantityTextview.setText(transaction.getQuantity());
-
+        Log.i("tes OnBindViewHolder", "getPrice " + transaction.getPrice().toString());
+        holder.priceTextview.setText(transaction.getPrice().toString());
+        holder.quantityTextview.setText(transaction.getQuantity().toString());
+        Log.i("onBindViewHolder", transaction.getMedicineName());
     }
 
 
