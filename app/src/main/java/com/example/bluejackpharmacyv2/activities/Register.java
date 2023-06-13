@@ -131,7 +131,7 @@ public class Register extends AppCompatActivity {
                 userDb.insertUser(name, email, password, phoneNumber);
                 Log.i("register", "insertUserToDatabase: name: " + name  + " email: " + email + " password: " + password + " phoneNumber: " + phoneNumber);
 
-                User user = new User(userDb.getUserId(name), name, email, password, phoneNumber, userDb.getVerified(name));
+                User user = new User(userDb.getUserId(email), name, email, password, phoneNumber, userDb.getVerified(name));
                 users.add(user);
             }else{
                 String countryCode = "+62";
@@ -140,7 +140,7 @@ public class Register extends AppCompatActivity {
                 userDb.insertUser(name, email, password, fixedPhoneNumber);
                 Log.i("register", "insertUserToDatabase: name: " + name  + " email: " + email + " password: " + password + " phoneNumber: " + fixedPhoneNumber);
 
-                User user = new User(userDb.getUserId(name), name, email, password, fixedPhoneNumber, userDb.getVerified(name));
+                User user = new User(userDb.getUserId(email), name, email, password, fixedPhoneNumber, userDb.getVerified(name));
                 users.add(user);
             }
         }

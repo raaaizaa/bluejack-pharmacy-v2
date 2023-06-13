@@ -92,6 +92,38 @@ public class MedicineDatabaseHelper extends SQLiteOpenHelper {
         return medicineId;
     }
 
+    public String getMedicineName(Integer medicineId){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT medicineName FROM medicine WHERE medicineId = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(medicineId)});
+
+        String medicineName = "";
+
+        if(cursor.moveToFirst()){
+            medicineName = cursor.getString(cursor.getColumnIndex("medicineName"));
+        }
+
+        cursor.close();
+
+        return medicineName;
+    }
+
+    public String getManufacturer(Integer medicineId){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT manufacturer FROM medicine WHERE medicineId = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(medicineId)});
+
+        String manufacturer = "";
+
+        if(cursor.moveToFirst()){
+            manufacturer = cursor.getString(cursor.getColumnIndex("manufacturer"));
+        }
+
+        cursor.close();
+
+        return manufacturer;
+    }
+
 
     private ContentValues inputContent(Integer medicineId, String medicineName, String manufacturer, Integer price, String image, String description) {
         ContentValues contentValues = new ContentValues();

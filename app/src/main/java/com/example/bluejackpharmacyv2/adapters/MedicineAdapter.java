@@ -88,7 +88,6 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
     }
 
 
-
     @Override
     public int getItemCount() {
         return medicines.size();

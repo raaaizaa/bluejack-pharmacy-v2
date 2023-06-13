@@ -214,15 +214,16 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Integer getUserId(String name) {
+    public Integer getUserId(String email) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String selectQuery = "SELECT userId FROM user WHERE name = ?";
-        Cursor cursor = db.rawQuery(selectQuery, new String[]{name});
+        String selectQuery = "SELECT userId FROM user WHERE email = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{email});
 
         Integer userId = null;
 
         if (cursor.moveToFirst()) {
             userId = cursor.getInt(cursor.getColumnIndex("userId"));
+            Log.i("UserDb: getUserId", "userId = " + userId);
         }
 
         cursor.close();

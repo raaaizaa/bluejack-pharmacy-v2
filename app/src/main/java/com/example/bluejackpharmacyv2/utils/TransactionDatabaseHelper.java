@@ -29,7 +29,7 @@ public class TransactionDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(dropQuery);
     }
 
-    public boolean newTransaction(Integer medicineId, Integer userId, Date transactionDate, Integer quantity){
+    public void newTransaction(Integer medicineId, Integer userId, Date transactionDate, Integer quantity){
         SQLiteDatabase db = this.getWritableDatabase();
 
         Integer transactionId = generateTransactionId();
@@ -40,25 +40,80 @@ public class TransactionDatabaseHelper extends SQLiteOpenHelper {
         Log.i("transactionDbHelper", "transactionId: " + transactionId + " userId: " + userId + " transactionDate: " + transactionDate + " quantity: " + quantity);
 
         db.close();
-        return results != -1;
     }
 
     public Integer generateTransactionId() {
         SQLiteDatabase db = this.getWritableDatabase();
-        String selectMax = "SELECT MAX(transactionId) FROM transactions WHERE userId = ?";
+        String selectMax = "SELECT MAX(transactionId) FROM transactions";
         Cursor cursor = db.rawQuery(selectMax, null);
-        Integer latestTransactionId = 2023001;
+        Integer latestTransactionId = null;
 
-        if(cursor.moveToFirst()){
-            latestTransactionId = cursor.getInt(0);
+        if (cursor.moveToFirst()) {
+            Integer columnIndex = cursor.getColumnIndex("MAX(transactionId)");
+            if (!cursor.isNull(columnIndex)) {
+                latestTransactionId = cursor.getInt(columnIndex);
+            }
+        }
+
+        cursor.close();
+
+        if (latestTransactionId == null) {
+            latestTransactionId = 2023000;
         }
 
         Log.i("transactionDbHelper", "generateTransactionId: latestTransactionId is = " + latestTransactionId);
         Integer newTransactionId = latestTransactionId + 1;
-        cursor.close();
 
         Log.i("transactionDbHelper", "generateTransactionId: new generated ID is = " + newTransactionId);
         return newTransactionId;
+    }
+
+    public Integer getTransactionId(Integer medicineId, Integer userId, Date transactionDate){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT transactionId FROM transactions WHERE medicineId = ? AND userId = ? OR transactionDate = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(medicineId), String.valueOf(userId), String.valueOf(transactionDate)});
+
+        Integer transactionId = null;
+
+        if(cursor.moveToFirst()){
+            transactionId = cursor.getInt(cursor.getColumnIndex("transactionId"));
+        }
+
+        cursor.close();
+
+        return transactionId;
+    }
+
+    public Integer getMedicineId(Integer userId, Date transactionDate){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT medicineId FROM transactions WHERE userId = ? AND transactionDate = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(userId), String.valueOf(transactionDate)});
+
+        Integer medicineId = null;
+
+        if(cursor.moveToFirst()){
+            medicineId = cursor.getInt(cursor.getColumnIndex("medicineId"));
+        }
+
+        cursor.close();
+
+        return medicineId;
+    }
+
+    public Integer getTotalPrice(Integer userId, Integer medicineId, Date transactionDate, Integer price){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT quantity FROM transactions WHERE userId = ? AND medicineId = ? OR transactionDate = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(userId), String.valueOf(medicineId), String.valueOf(transactionDate)});
+
+        Integer totalPrice = null;
+
+        if(cursor.moveToFirst()){
+            totalPrice = cursor.getInt(cursor.getColumnIndex("quantity")) * price;
+        }
+
+        cursor.close();
+
+        return totalPrice;
     }
 
     private ContentValues inputContent(Integer transactionId, Integer medicineId, Integer userId, Date transactionDate, Integer quantity) {
