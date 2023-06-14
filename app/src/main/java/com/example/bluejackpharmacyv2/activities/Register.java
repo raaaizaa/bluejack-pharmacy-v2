@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import com.example.bluejackpharmacyv2.R;
 import com.example.bluejackpharmacyv2.models.User;
 import com.example.bluejackpharmacyv2.utils.UserDatabaseHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,6 +31,7 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        users = new ArrayList<>();
 
         initialize();
     }
@@ -132,6 +135,7 @@ public class Register extends AppCompatActivity {
 
                 userDb.insertUser(name, email, password, fixedPhoneNumber);
                 User user = new User(userDb.getUserId(email), name, email, password, fixedPhoneNumber, userDb.getVerified(name));
+                Log.i("ASD", userDb.getUserId(email) + " " + name + " " + email + " " + password + " " + fixedPhoneNumber + " " + userDb.getVerified(name));
                 users.add(user);
             }
         }

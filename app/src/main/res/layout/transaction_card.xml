@@ -115,6 +115,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:textAlignment="center"
+                        android:inputType="number"
                         android:visibility="gone"
                         android:text="0" />
 
