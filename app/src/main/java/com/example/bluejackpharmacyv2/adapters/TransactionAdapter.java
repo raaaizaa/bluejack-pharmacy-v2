@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -72,6 +73,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         Transaction transaction = transactions.get(position);
         medicineDb = new MedicineDatabaseHelper(context);
         transactionDb = new TransactionDatabaseHelper(context, medicineDb);
+
         holder.transactionIdTextview.setText(transaction.getTransactionId().toString());
         Picasso.get().load(transaction.getMedicineImage()).into(holder.medicineImage);
         holder.medicineNameTextview.setText(transaction.getMedicineName());
@@ -81,44 +83,65 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         holder.quantityTextview.setText(transaction.getQuantity().toString());
 
         holder.itemView.setOnClickListener(e -> {
-            // tba
+            showToast("You add this item at " + transactions.get(position).getTransactionDate() + "!");
         });
 
         holder.deleteButton.setOnClickListener(e -> {
             Integer transactionId = transactions.get(holder.getAdapterPosition()).getTransactionId();
             transactionDb.dropTransaction(transactionId);
+
             transactions.remove(holder.getAdapterPosition());
             notifyItemRemoved(holder.getAdapterPosition());
         });
 
         holder.updateButton.setOnClickListener(e ->{
             if(holder.quantityTextview.getVisibility() == View.VISIBLE){
-                holder.editQuantityField.setText(holder.quantityTextview.getText().toString());
-
-                holder.quantityTextview.setVisibility(View.GONE);
-                holder.editQuantityField.setVisibility(View.VISIBLE);
-                holder.editQuantityField.requestFocus();
-                InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputMethodManager.showSoftInput(holder.editQuantityField, inputMethodManager.SHOW_IMPLICIT);
+                showEditQuantityField(holder);
             }else{
-                holder.quantityTextview.setText(holder.editQuantityField.getText().toString());
-                Integer transactionId = transactions.get(holder.getAdapterPosition()).getTransactionId();
-                Integer newQuantity = Integer.parseInt(String.valueOf(holder.editQuantityField.getText()));
-                transactionDb.updateTransaction(transactionId, newQuantity);
-                transactions.get(position).setQuantity(Integer.parseInt(String.valueOf(holder.editQuantityField.getText())));
-                holder.editQuantityField.setVisibility(View.GONE);
-                holder.quantityTextview.setVisibility(View.VISIBLE);
-                InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputMethodManager.hideSoftInputFromWindow(holder.editQuantityField.getWindowToken(), 0);
-
-                notifyItemChanged(position);
+                updateTransactionQuantity(holder);
             }
         });
     }
+
+    private void showEditQuantityField(ViewHolder holder) {
+        holder.editQuantityField.setText(holder.quantityTextview.getText().toString());
+        holder.quantityTextview.setVisibility(View.GONE);
+        holder.editQuantityField.setVisibility(View.VISIBLE);
+        holder.editQuantityField.requestFocus();
+
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.showSoftInput(holder.editQuantityField, InputMethodManager.SHOW_IMPLICIT);
+    }
+
+    private void updateTransactionQuantity(ViewHolder holder) {
+        holder.quantityTextview.setText(holder.editQuantityField.getText().toString());
+        Integer transactionId = transactions.get(holder.getAdapterPosition()).getTransactionId();
+        Integer newQuantity = Integer.parseInt(String.valueOf(holder.editQuantityField.getText()));
+
+        if(newQuantity.equals(0)){
+            showToast("You must input quantity more than 0!");
+        }else{
+            transactionDb.updateTransaction(transactionId, newQuantity);
+            transactions.get(holder.getAdapterPosition()).setQuantity(newQuantity);
+
+            holder.editQuantityField.setVisibility(View.GONE);
+            holder.quantityTextview.setVisibility(View.VISIBLE);
+
+            InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(holder.editQuantityField.getWindowToken(), 0);
+            notifyItemChanged(holder.getAdapterPosition());
+        }
+    }
+
+
 
 
     @Override
     public int getItemCount() {
         return transactions.size();
+    }
+
+    private void showToast(String message){
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 }

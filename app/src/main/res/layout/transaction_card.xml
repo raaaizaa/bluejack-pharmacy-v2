@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white_slightly_darker"
+    android:paddingBottom="12dp"
     android:orientation="vertical">
     
     <LinearLayout
@@ -83,22 +84,42 @@
                     android:textSize="16dp"
                     android:text="price" />
 
-                <TextView
-                    android:id="@+id/medicine_quantity_transaction"
+
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black_slightly_brighter"
-                    android:textSize="14dp"
-                    android:visibility="visible"
-                    android:text="quantity" />
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/edit_quantity_transaction"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:textAlignment="center"
-                    android:visibility="gone"
-                    android:text="0" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black_slightly_brighter"
+                        android:textSize="14dp"
+                        android:visibility="visible"
+                        android:text="Quantity:" />
+
+                    <TextView
+                        android:id="@+id/medicine_quantity_transaction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black_slightly_brighter"
+                        android:textSize="14dp"
+                        android:visibility="visible"
+                        android:paddingStart="2dp"
+                        android:text="0" />
+
+                    <EditText
+                        android:id="@+id/edit_quantity_transaction"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:textAlignment="center"
+                        android:visibility="gone"
+                        android:text="0" />
+
+                </LinearLayout>
+
+
                 
             </LinearLayout>
             
