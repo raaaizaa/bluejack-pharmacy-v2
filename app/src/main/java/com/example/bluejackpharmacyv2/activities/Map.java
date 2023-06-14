@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageButton;
 
 import com.example.bluejackpharmacyv2.R;
@@ -19,10 +18,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class Map extends AppCompatActivity implements OnMapReadyCallback{
 
     private GoogleMap map;
+    private ImageButton backButton;
     private final float ZOOM_LEVEL = 15.0f;
     private final double LAT = -6.20201, LONG = 106.78113;
     private final String MARKER_NAME = "Bluejack Pharmacy";
-    private ImageButton backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

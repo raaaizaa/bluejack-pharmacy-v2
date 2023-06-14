@@ -9,10 +9,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.bluejackpharmacyv2.R;
-import com.example.bluejackpharmacyv2.utils.UserDatabaseHelper;
 
 public class AboutUs extends AppCompatActivity {
-
     private Button mapButton;
     private ImageButton backButton;
 
@@ -22,7 +20,6 @@ public class AboutUs extends AppCompatActivity {
         setContentView(R.layout.activity_about_us);
 
         initialize();
-
     }
 
     private void initialize(){
@@ -39,8 +36,6 @@ public class AboutUs extends AppCompatActivity {
         });
 
         backButton.setForeground(ContextCompat.getDrawable(this, R.drawable.clicked_blue));
-        backButton.setOnClickListener(e -> {
-            finish();
-        });
+        backButton.setOnClickListener(e -> finish());
     }
 }

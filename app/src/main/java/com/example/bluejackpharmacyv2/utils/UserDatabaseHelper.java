@@ -1,5 +1,6 @@
 package com.example.bluejackpharmacyv2.utils;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -13,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDatabaseHelper extends SQLiteOpenHelper {
-
     public static final String USER_DB = "User.db";
     private List<User> users;
 
@@ -44,6 +44,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
             long results = db.insert("user", null, contentValues);
 
             db.close();
+            Log.d("Insertion Success", "User inserted successfully");
         }
     }
 
@@ -61,16 +62,6 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String selectQuery = "SELECT * FROM user WHERE email = ? AND password = ?";
         Cursor cursor = db.rawQuery(selectQuery, new String[]{email, password});
-
-        boolean result = cursor.getCount() > 0;
-        cursor.close();
-        return result;
-    }
-
-    public boolean checkRegister(String name, String email, String phone){
-        SQLiteDatabase db = this.getWritableDatabase();
-        String selectQuery = "SELECT * FROM user WHERE name = ? OR email = ? OR phone = ?";
-        Cursor cursor = db.rawQuery(selectQuery, new String[]{name, email, phone});
 
         boolean result = cursor.getCount() > 0;
         cursor.close();
@@ -123,6 +114,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         return result;
     }
 
+    @SuppressLint("Range")
     public boolean checkVerified(String email) {
         SQLiteDatabase db = this.getWritableDatabase();
         String selectQuery = "SELECT verified FROM user WHERE email = ?";
@@ -130,7 +122,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
 
         boolean result = false;
         if (cursor.moveToFirst()) {
-            String value = cursor.getString(cursor.getColumnIndex("verified"));
+        String value = cursor.getString(cursor.getColumnIndex("verified"));
             result = value.equals("verified");
         }
 
@@ -138,6 +130,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         return result;
     }
 
+    @SuppressLint("Range")
     public String getName(String email){
         SQLiteDatabase db = this.getWritableDatabase();
         String selectQuery = "SELECT name FROM user WHERE email = ?";
@@ -152,6 +145,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         return name;
     }
 
+    @SuppressLint("Range")
     public String getPhoneNumber(String email){
         SQLiteDatabase db = this.getWritableDatabase();
         String selectQuery = "SELECT phone FROM user WHERE email = ?";
@@ -171,12 +165,13 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         values.put("verified", message);
 
         int rowsAffected = db.update("user", values, "email = ?", new String[]{email});
+        db.close();
 
         if (rowsAffected > 0) {
+            Log.d("Update Success", "Verification completed successfully");
         } else {
+            Log.e("Update Error", "Failed to complete verification");
         }
-
-        db.close();
     }
 
     public void insertDummyUser(){
@@ -203,6 +198,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    @SuppressLint("Range")
     public Integer getUserId(String email) {
         SQLiteDatabase db = this.getWritableDatabase();
         String selectQuery = "SELECT userId FROM user WHERE email = ?";

@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,16 +15,14 @@ import com.example.bluejackpharmacyv2.R;
 import com.example.bluejackpharmacyv2.models.User;
 import com.example.bluejackpharmacyv2.utils.UserDatabaseHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Register extends AppCompatActivity {
-
+    private UserDatabaseHelper userDb;
     private EditText nameField, emailField, passwordField, confirmPassField, phoneNumberField;
     private Button registerButton, goToLoginButton;
-    private UserDatabaseHelper userDb;
     private List<User> users;
 
     @Override
@@ -114,7 +111,6 @@ public class Register extends AppCompatActivity {
 
     private void insertUserToDatabase(String name, String email, String password, String phoneNumber){
         userDb = new UserDatabaseHelper(this);
-        List<User> users = new ArrayList<>();
         boolean usernameExists = userDb.checkUsername(name);
         boolean emailExists = userDb.checkEmail(email);
         boolean phoneNumberExists = userDb.checkPhoneNumber(phoneNumber);

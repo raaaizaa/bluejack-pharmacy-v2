@@ -4,53 +4,36 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.bluejackpharmacyv2.R;
-import com.example.bluejackpharmacyv2.models.User;
 import com.example.bluejackpharmacyv2.utils.UserDatabaseHelper;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Login extends AppCompatActivity {
-
+    private UserDatabaseHelper userDb;
     private EditText emailField, passwordField;
     private Button loginButton, goToRegisterButton;
-    private UserDatabaseHelper userDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        List<User> users = new ArrayList<>();
         initialize();
     }
 
     private boolean loginValidation(String email, String password){
         userDb = new UserDatabaseHelper(this);
-        boolean userExists = userDb.loginCheck(email, password);
 
-        if(userExists){
-            return true;
-        }else{
-            return false;
-        }
+        return userDb.loginCheck(email, password);
     }
 
     private boolean isUserVerified(String email){
         userDb = new UserDatabaseHelper(this);
-        boolean userIsVerified = userDb.checkVerified(email);
 
-        if(userIsVerified){
-            return true;
-        }else{
-            return false;
-        }
+        return userDb.checkVerified(email);
     }
 
     private void initialize(){

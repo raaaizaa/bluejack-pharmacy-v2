@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,20 +35,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MedicineFragment extends Fragment {
-
     private RequestQueue requestQueue;
     private Context context;
-    private MedicineDatabaseHelper medicineDb;
-    private final String URL = "https://mocki.io/v1/ae13b04b-13df-4023-88a5-7346d5d3c7eb";
-    private RecyclerView medicineRV;
-    private MedicineAdapter adapter;
-    private List<Medicine> medicines;
-    private TextView greetingTextview;
     private View view;
+    private MedicineDatabaseHelper medicineDb;
     private UserDatabaseHelper userDb;
-    private String email;
+    private MedicineAdapter adapter;
+    private TextView greetingTextview;
+    private RecyclerView medicineRV;
     private ProgressBar progressBar;
     private CardView videoCard;
+    private List<Medicine> medicines;
+    private final String URL = "https://mocki.io/v1/ae13b04b-13df-4023-88a5-7346d5d3c7eb";
+    private String email;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,7 +63,7 @@ public class MedicineFragment extends Fragment {
         }
 
         initialize(email);
-        fetchJson(email);
+        fetchData(email);
         return view;
     }
 
@@ -84,7 +83,7 @@ public class MedicineFragment extends Fragment {
         videoCard.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=c06dTj0v0sM"))));
     }
 
-    private void fetchJson(String email){
+    private void fetchData(String email){
         medicineDb = new MedicineDatabaseHelper(context);
         requestQueue = Volley.newRequestQueue(context);
 
@@ -114,16 +113,10 @@ public class MedicineFragment extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
-                    for(Medicine medicine : medicines){
-
-                    }
                 },
                 Throwable::printStackTrace
         );
-
         requestQueue.add(request);
-
     }
 
     public void insertMedicineToDatabase(String medicineName, String manufacturer, Integer medicinePrice, String medicineImage, String medicineDescription){
@@ -134,7 +127,7 @@ public class MedicineFragment extends Fragment {
         return medicineDb.getMedicineId(medicineName);
     }
 
-    public void setRecyclerview(List medicines, Context context, String email){
+    public void setRecyclerview(List<Medicine> medicines, Context context, String email){
         adapter = new MedicineAdapter(medicines, context, email);
         medicineRV.setAdapter(adapter);
 

@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,9 +21,9 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHolder> {
-    private final List<Medicine> medicines;
     private final Context context;
-    private String email;
+    private final List<Medicine> medicines;
+    private final String email;
 
     public MedicineAdapter(List<Medicine> medicines, Context context, String email) {
         this.medicines = medicines;
@@ -33,10 +32,9 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        private ImageView medicineImage;
-        private TextView medicineName, medicineManufacturer, medicinePrice;
-        private CardView medicineCard;
-        private LinearLayout medicineContainer;
+        private final TextView medicineName, medicineManufacturer, medicinePrice;
+        private final LinearLayout medicineContainer;
+        private final ImageView medicineImage;
 
         public ViewHolder(View view){
             super(view);
@@ -44,7 +42,6 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
             medicineName = view.findViewById(R.id.medicine_name);
             medicineManufacturer = view.findViewById(R.id.medicine_manufacturer);
             medicinePrice = view.findViewById(R.id.medicine_price);
-            medicineCard = view.findViewById(R.id.medicine_card);
             medicineContainer = view.findViewById(R.id.medicine_container);
         }
     }

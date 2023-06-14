@@ -7,10 +7,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.example.bluejackpharmacyv2.R;
 import com.example.bluejackpharmacyv2.adapters.TransactionAdapter;
@@ -19,27 +19,24 @@ import com.example.bluejackpharmacyv2.utils.MedicineDatabaseHelper;
 import com.example.bluejackpharmacyv2.utils.TransactionDatabaseHelper;
 import com.example.bluejackpharmacyv2.utils.UserDatabaseHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionFragment extends Fragment {
-
     private Context context;
+    private TransactionDatabaseHelper transactionsDb;
+    private MedicineDatabaseHelper medicineDb;
+    private UserDatabaseHelper userDb;
     private TransactionAdapter adapter;
     private RecyclerView transactionRV;
-    String email;
-    TransactionDatabaseHelper transactionsDb;
-    UserDatabaseHelper userDb;
-    MedicineDatabaseHelper medicineDb;
-    View view;
+    private String email;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_transaction, container, false);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         this.context = getContext();
 
         Bundle args = getArguments();
-
         if(args != null){
             email = args.getString("email");
         }
@@ -58,9 +55,7 @@ public class TransactionFragment extends Fragment {
 
         Integer userId = userDb.getUserId(email);
 
-        List<Transaction> transactions = transactionsDb.getAllTransactions(userId);
-
-        return transactions;
+        return transactionsDb.getAllTransactions(userId);
     }
 
     public void setRecyclerview(List transactions, Context context, String email){

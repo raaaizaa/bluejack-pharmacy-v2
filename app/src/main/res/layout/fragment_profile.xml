@@ -66,8 +66,6 @@
                             android:textColor="@color/full_white"
                             android:text="+6216721576482" />
 
-
-
                     </LinearLayout>
 
                 </LinearLayout>
@@ -112,8 +110,5 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
-
-
-
 
 </FrameLayout>

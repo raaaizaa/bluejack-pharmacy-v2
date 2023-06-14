@@ -11,7 +11,6 @@ import android.util.Log;
 import com.example.bluejackpharmacyv2.models.Medicine;
 
 public class MedicineDatabaseHelper extends SQLiteOpenHelper {
-
     public static final String MEDICINE_DB = "Medicine.db";
 
     public MedicineDatabaseHelper(Context context){
@@ -30,22 +29,27 @@ public class MedicineDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(dropQuery);
     }
 
-    public boolean insertMedicine(String medicineName, String manufacturer, Integer price, String image, String description){
+    public void insertMedicine(String medicineName, String manufacturer, Integer price, String image, String description) {
         SQLiteDatabase db = this.getWritableDatabase();
         boolean medicineExists = checkMedicine(medicineName, manufacturer);
 
-        if(medicineExists){
-            return false;
-        }else{
+        if (!medicineExists) {
             Integer medicineId = generateMedicineId();
             ContentValues contentValues = inputContent(medicineId, medicineName, manufacturer, price, image, description);
 
-            long results = db.insert("medicine", null, contentValues);
-
+            long result = db.insert("medicine", null, contentValues);
             db.close();
-            return results != -1;
+
+            if (result == -1) {
+                Log.e("Insertion Error", "Failed to insert medicine");
+            } else {
+                Log.d("Insertion Success", "Medicine inserted successfully");
+            }
+        } else {
+            Log.d("Medicine Exists", "Medicine already exists");
         }
     }
+
 
     public boolean checkMedicine(String medicineName, String manufacturer){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -73,6 +77,7 @@ public class MedicineDatabaseHelper extends SQLiteOpenHelper {
         return newMedicineId;
     }
 
+    @SuppressLint("Range")
     public Integer getMedicineId(String medicineName) {
         SQLiteDatabase db = this.getWritableDatabase();
         String selectQuery = "SELECT medicineId FROM medicine WHERE medicineName = ?";
@@ -89,6 +94,7 @@ public class MedicineDatabaseHelper extends SQLiteOpenHelper {
         return medicineId;
     }
 
+    @SuppressLint("Range")
     public String getMedicineName(Integer medicineId){
         SQLiteDatabase db = this.getWritableDatabase();
         String selectQuery = "SELECT medicineName FROM medicine WHERE medicineId = ?";
@@ -105,6 +111,7 @@ public class MedicineDatabaseHelper extends SQLiteOpenHelper {
         return medicineName;
     }
 
+    @SuppressLint("Range")
     public String getManufacturer(Integer medicineId){
         SQLiteDatabase db = this.getWritableDatabase();
         String selectQuery = "SELECT manufacturer FROM medicine WHERE medicineId = ?";
@@ -157,6 +164,5 @@ public class MedicineDatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("description", description);
 
         return contentValues;
-
     }
 }

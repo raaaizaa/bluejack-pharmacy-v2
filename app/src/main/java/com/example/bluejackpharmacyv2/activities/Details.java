@@ -5,7 +5,6 @@ import androidx.core.content.ContextCompat;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bluejackpharmacyv2.R;
-import com.example.bluejackpharmacyv2.fragments.TransactionFragment;
 import com.example.bluejackpharmacyv2.models.Transaction;
 import com.example.bluejackpharmacyv2.utils.MedicineDatabaseHelper;
 import com.example.bluejackpharmacyv2.utils.TransactionDatabaseHelper;
@@ -28,16 +26,16 @@ import java.util.List;
 
 public class Details extends AppCompatActivity {
 
-    private Integer count = 0;
-    private EditText counterField;
-    private TextView medicineNameTextview, medicinePriceTextview, manufacturerTextview, medicineDescriptionTextview;
-    private ImageView medicineImageview;
-    private ImageButton backButton;
-    private Button addToCartButton, minButton, plusButton;
     private TransactionDatabaseHelper transactionDb;
     private UserDatabaseHelper userDb;
     private MedicineDatabaseHelper medicineDb;
+    private TextView medicineNameTextview, medicinePriceTextview, manufacturerTextview, medicineDescriptionTextview;
+    private EditText counterField;
+    private ImageView medicineImageview;
+    private ImageButton backButton;
+    private Button addToCartButton, minButton, plusButton;
     private List<Transaction> transactions;
+    private Integer count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +77,6 @@ public class Details extends AppCompatActivity {
                 count--;
                 counterField.setText(String.valueOf(count));
             }
-
         });
 
         plusButton.setOnClickListener(v -> {
@@ -101,13 +98,9 @@ public class Details extends AppCompatActivity {
 
                 new AlertDialog.Builder(this).setMessage(message).setPositiveButton("Yes", ((dialog, which) -> {
                     addToTransaction(email, medicineId, counter, price);
-
                     showToast("Success adding item!");
-                }))
-                        .setNegativeButton("No", null).show();
-
+                })).setNegativeButton("No", null).show();
             }
-
         });
     }
 
@@ -122,7 +115,6 @@ public class Details extends AppCompatActivity {
         manufacturerTextview.setText(manufacturer);
         medicinePriceTextview.setText(medicinePrice);
         medicineDescriptionTextview.setText(medicineDescription);
-
         Picasso.get().load(medicineImage).into(medicineImageview);
     }
 
@@ -142,48 +134,43 @@ public class Details extends AppCompatActivity {
         String manufacturer = getManufacturer(medicineId);
         String medicineName = getMedicineName(medicineId);
         Integer transactionId = getTransactionId(medicineId, userId, currentDate);
-        Integer totalPrice = getTotalPrice(userId, medicineId, currentDate, Integer.parseInt(price), quantity);
+        Integer totalPrice = getTotalPrice(userId, medicineId, currentDate, Integer.parseInt(price));
+
         Transaction transaction = new Transaction(medicineImage, manufacturer , medicineName, transactionId, totalPrice, medicineId, userId, quantity, currentDate);
         transactions.add(transaction);
     }
 
     private Integer getTransactionId(Integer medicineId, Integer userId, Date transactionDate){
         transactionDb = new TransactionDatabaseHelper(this, medicineDb);
-        Integer transactionId = transactionDb.getTransactionId(medicineId, userId, transactionDate);
 
-        return transactionId;
+        return transactionDb.getTransactionId(medicineId, userId, transactionDate);
     }
 
     private String getMedicineImage(Integer userId, Date transactionDate){
         transactionDb = new TransactionDatabaseHelper(this, medicineDb);
-        String medicineImage = String.valueOf(transactionDb.getMedicineId(userId, transactionDate));
 
-        return medicineImage;
+        return String.valueOf(transactionDb.getMedicineId(userId, transactionDate));
     }
 
     private String getMedicineName(Integer medicineId){
         medicineDb = new MedicineDatabaseHelper(this);
-        String medicineName = medicineDb.getMedicineName(medicineId);
 
-        return medicineName;
+        return medicineDb.getMedicineName(medicineId);
     }
 
     private String getManufacturer(Integer medicineId){
         medicineDb = new MedicineDatabaseHelper(this);
-        String manufacturer = medicineDb.getManufacturer(medicineId);
 
-        return manufacturer;
+        return medicineDb.getManufacturer(medicineId);
     }
 
-    private Integer getTotalPrice(Integer userId, Integer medicineId, Date transactionDate, Integer price, Integer counter){
+    private Integer getTotalPrice(Integer userId, Integer medicineId, Date transactionDate, Integer price){
         transactionDb = new TransactionDatabaseHelper(this, medicineDb);
-        Integer totalPrice = transactionDb.getTotalPrice(userId, medicineId, transactionDate, price, counter);
 
-        return totalPrice;
+        return transactionDb.getTotalPrice(userId, medicineId, transactionDate, price);
     }
 
     private void showToast(String message){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
-
 }

@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:text="Register"
                 android:textColor="@color/full_white"
-                android:textSize="94px"
+                android:textSize="36sp"
                 android:paddingStart="24dp"
                 android:textStyle="bold" />
 
@@ -94,7 +94,7 @@
                         android:gravity="center"
                         android:layout_gravity="center"
                         android:textAlignment="center"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:padding="12dp"
                         android:textColor="@color/full_white"
                         android:text="+62" />
@@ -135,7 +135,6 @@
                     android:textStyle="bold" />
 
             </LinearLayout>
-
 
         </LinearLayout>
 

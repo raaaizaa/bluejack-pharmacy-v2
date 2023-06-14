@@ -19,10 +19,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class TransactionDatabaseHelper extends SQLiteOpenHelper {
-    private MedicineDatabaseHelper medicineDb;
-
+    private final MedicineDatabaseHelper medicineDb;
     public static final String TRANSACTION_DB = "Transaction.db";
-    Context context;
 
     public TransactionDatabaseHelper(Context context, MedicineDatabaseHelper medicineDb){
         super(context, TRANSACTION_DB, null, 1);
@@ -49,6 +47,8 @@ public class TransactionDatabaseHelper extends SQLiteOpenHelper {
 
         long results = db.insert("transactions", null, contentValues);
         db.close();
+
+        Log.d("Insertion Success", "Transaction inserted successfully");
     }
 
     public Integer generateTransactionId() {
@@ -70,9 +70,7 @@ public class TransactionDatabaseHelper extends SQLiteOpenHelper {
             latestTransactionId = 2023000;
         }
 
-        Integer newTransactionId = latestTransactionId + 1;
-
-        return newTransactionId;
+        return latestTransactionId + 1;
     }
 
     @SuppressLint("Range")
@@ -154,13 +152,12 @@ public class TransactionDatabaseHelper extends SQLiteOpenHelper {
     }
 
     @SuppressLint("Range")
-    public Integer getTotalPrice(Integer userId, Integer medicineId, Date transactionDate, Integer price, Integer counter){
+    public Integer getTotalPrice(Integer userId, Integer medicineId, Date transactionDate, Integer price){
         SQLiteDatabase db = this.getWritableDatabase();
         String selectQuery = "SELECT quantity FROM transactions WHERE (userId = ? AND medicineId = ?) AND transactionDate = ?";
         Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(userId), String.valueOf(medicineId), String.valueOf(transactionDate)});
 
         Integer totalPrice = null;
-        Integer quantity = null;
 
         if(cursor.moveToFirst()){
             totalPrice = cursor.getInt(cursor.getColumnIndex("quantity")) * price;

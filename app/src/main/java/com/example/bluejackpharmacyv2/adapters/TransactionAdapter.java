@@ -2,12 +2,10 @@ package com.example.bluejackpharmacyv2.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -26,11 +24,11 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.ViewHolder> {
-    private final List<Transaction> transactions;
-    private final Context context;
-    private String email;
     private TransactionDatabaseHelper transactionDb;
     private MedicineDatabaseHelper medicineDb;
+    private final Context context;
+    private final List<Transaction> transactions;
+    private final String email;
 
     public TransactionAdapter(List<Transaction> transactions, Context context, String email) {
         this.transactions = transactions;
@@ -39,10 +37,10 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        private ImageView medicineImage;
-        private TextView transactionIdTextview, transactionDateTextview, medicineNameTextview, manufacturerTextview, priceTextview, quantityTextview;
-        private EditText editQuantityField;
-        private ImageButton updateButton, deleteButton;
+        private final TextView transactionIdTextview, transactionDateTextview, medicineNameTextview, manufacturerTextview, priceTextview, quantityTextview;
+        private final ImageButton updateButton, deleteButton;
+        private final EditText editQuantityField;
+        private final ImageView medicineImage;
 
         public ViewHolder(View view) {
             super(view);
@@ -83,7 +81,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         holder.quantityTextview.setText(transaction.getQuantity().toString());
 
         holder.itemView.setOnClickListener(e -> {
-            showToast("You add this item at " + transactions.get(position).getTransactionDate() + "!");
+            // Cuman biar ripple effectnya jalan doang
         });
 
         holder.deleteButton.setOnClickListener(e -> {
@@ -119,7 +117,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         Integer newQuantity = Integer.parseInt(String.valueOf(holder.editQuantityField.getText()));
 
         if(newQuantity.equals(0)){
-            showToast("You must input quantity more than 0!");
+            showToast("You must input a quantity greater than 0!");
         }else{
             transactionDb.updateTransaction(transactionId, newQuantity);
             transactions.get(holder.getAdapterPosition()).setQuantity(newQuantity);
@@ -130,11 +128,9 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(holder.editQuantityField.getWindowToken(), 0);
             notifyItemChanged(holder.getAdapterPosition());
+            showToast("Success editing quantity!");
         }
     }
-
-
-
 
     @Override
     public int getItemCount() {

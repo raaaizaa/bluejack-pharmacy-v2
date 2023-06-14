@@ -9,7 +9,6 @@
         android:layout_centerInParent="true"
         android:src="@drawable/logo" />
 
-
     <ImageButton
         android:id="@+id/info_button"
         android:layout_width="72dp"

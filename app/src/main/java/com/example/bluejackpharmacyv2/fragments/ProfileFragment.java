@@ -19,13 +19,13 @@ import com.example.bluejackpharmacyv2.activities.Login;
 import com.example.bluejackpharmacyv2.utils.UserDatabaseHelper;
 
 public class ProfileFragment extends Fragment {
-    View view;
-    private Button logoutButton;
+    private UserDatabaseHelper userDb;
+    private View view;
+    private Context context;
     private TextView profileNameTextview, profileEmailTextView, profilePhoneTextview;
     private LinearLayout profileCard;
-    Context context;
-    UserDatabaseHelper userDb;
-    String email;
+    private Button logoutButton;
+    private String email;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,7 +41,6 @@ public class ProfileFragment extends Fragment {
     }
 
     public void initialize(String email){
-
         profileNameTextview = view.findViewById(R.id.profile_name);
         profileEmailTextView = view.findViewById(R.id.profile_email);
         profilePhoneTextview = view.findViewById(R.id.profile_phone);
@@ -68,7 +67,7 @@ public class ProfileFragment extends Fragment {
 
         profileCard.setForeground(ContextCompat.getDrawable(context, R.drawable.clicked_blue));
         profileCard.setOnClickListener(v ->{
-
+            // Cuma biar si ripple effectnya ada doang
         });
     }
 

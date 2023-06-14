@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:text="Your account hasn't been verified... yet"
                 android:textColor="@color/black"
-                android:textSize="30dp"
+                android:textSize="30sp"
                 android:textAlignment="center"
                 android:textStyle="bold" />
 
@@ -40,7 +40,7 @@
                 android:text="We've sent you an OTP code to verify your account."
                 android:textColor="@color/description_textcolor"
                 android:textAlignment="center"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/otp_field"

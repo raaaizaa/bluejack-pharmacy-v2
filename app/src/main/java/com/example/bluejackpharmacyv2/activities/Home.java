@@ -55,7 +55,6 @@ public class Home extends AppCompatActivity {
                     replaceFragment(profileFragment, email);
                     return true;
             }
-
             return false;
         });
         bottomNavigationView.setSelectedItemId(R.id.navigation_medicine);

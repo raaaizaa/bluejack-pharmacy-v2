@@ -27,13 +27,12 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import java.util.concurrent.TimeUnit;
 
 public class Authentication extends AppCompatActivity {
-
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     private FirebaseAuth mAuth;
+    private UserDatabaseHelper userDb;
     private EditText otpField;
     private Button enterOtpButton;
-    private UserDatabaseHelper userDb;
-    private String email, verificationId, mVerificationId, PHONE_NUM;
+    private String email, mVerificationId, PHONE_NUM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
