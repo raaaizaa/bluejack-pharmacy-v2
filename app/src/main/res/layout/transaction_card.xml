@@ -11,20 +11,17 @@
         android:orientation="horizontal" >
         
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textAlignment="textEnd"
             android:textColor="@color/black"
-            android:layout_weight="0.9"
             android:text="Order ID: " />
         
         <TextView
             android:id="@+id/id_transaction"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:layout_weight="0.1"
             android:text="2" />
         
     </LinearLayout>
@@ -33,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/full_white"
+        android:foreground="@drawable/clicked_card"
         android:orientation="vertical">
         
         <LinearLayout
@@ -43,6 +41,7 @@
             <ImageView
                 android:id="@+id/medicine_image_transaction"
                 android:layout_width="125dp"
+                android:scaleType="fitCenter"
                 android:layout_height="125dp" />
             
             <LinearLayout
@@ -107,27 +106,29 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp">
 
-            <Button
-                android:id="@+id/delete_button_transaction"
-                android:layout_width="100dp"
-                android:layout_height="35dp"
+            <ImageButton
+                android:id="@+id/update_button_transaction"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="12dp"
-                android:background="@drawable/button_styling_add_to_cart"
-                android:text="Delete"
-                android:textColor="@color/full_white" />
+                android:src="@drawable/baseline_edit_24"
+                android:foreground="@drawable/clicked_card"
+                android:background="@color/full_white" />
 
-            <Button
-                android:id="@+id/update_button_transaction"
-                android:layout_width="100dp"
-                android:layout_height="35dp"
-                android:layout_toStartOf="@+id/delete_button_transaction"
-                android:background="@drawable/button_styling_add_to_cart"
-                android:layout_marginEnd="12dp"
-                android:text="Update"
-                android:textColor="@color/full_white" />
+            <ImageButton
+                android:id="@+id/delete_button_transaction"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@color/full_white"
+                android:foreground="@drawable/clicked_card"
+                android:layout_marginEnd="24dp"
+                android:layout_toStartOf="@+id/update_button_transaction"
+                android:src="@drawable/baseline_delete_24"/>
 
         </RelativeLayout>
         

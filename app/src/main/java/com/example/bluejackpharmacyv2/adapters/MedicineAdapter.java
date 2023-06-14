@@ -15,7 +15,6 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bluejackpharmacyv2.R;
-import com.example.bluejackpharmacyv2.activities.Authentication;
 import com.example.bluejackpharmacyv2.activities.Details;
 import com.example.bluejackpharmacyv2.models.Medicine;
 import com.squareup.picasso.Picasso;

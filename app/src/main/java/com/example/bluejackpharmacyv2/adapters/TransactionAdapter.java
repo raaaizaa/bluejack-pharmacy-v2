@@ -6,8 +6,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bluejackpharmacyv2.R;
 import com.example.bluejackpharmacyv2.models.Transaction;
+import com.example.bluejackpharmacyv2.utils.MedicineDatabaseHelper;
+import com.example.bluejackpharmacyv2.utils.TransactionDatabaseHelper;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -24,6 +28,8 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     private final List<Transaction> transactions;
     private final Context context;
     private String email;
+    private TransactionDatabaseHelper transactionDb;
+    private MedicineDatabaseHelper medicineDb;
 
     public TransactionAdapter(List<Transaction> transactions, Context context, String email) {
         this.transactions = transactions;
@@ -35,7 +41,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         private ImageView medicineImage;
         private TextView transactionIdTextview, transactionDateTextview, medicineNameTextview, manufacturerTextview, priceTextview, quantityTextview;
         private EditText editQuantityField;
-        private Button updateButton, deleteButton;
+        private ImageButton updateButton, deleteButton;
 
         public ViewHolder(View view) {
             super(view);
@@ -64,6 +70,8 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Transaction transaction = transactions.get(position);
+        medicineDb = new MedicineDatabaseHelper(context);
+        transactionDb = new TransactionDatabaseHelper(context, medicineDb);
         holder.transactionIdTextview.setText(transaction.getTransactionId().toString());
         Picasso.get().load(transaction.getMedicineImage()).into(holder.medicineImage);
         holder.medicineNameTextview.setText(transaction.getMedicineName());
@@ -71,6 +79,41 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         holder.manufacturerTextview.setText(transaction.getManufacturer());
         holder.priceTextview.setText(String.valueOf(transaction.getPrice() * transaction.getQuantity()));
         holder.quantityTextview.setText(transaction.getQuantity().toString());
+
+        holder.itemView.setOnClickListener(e -> {
+            // tba
+        });
+
+        holder.deleteButton.setOnClickListener(e -> {
+            Integer transactionId = transactions.get(holder.getAdapterPosition()).getTransactionId();
+            transactionDb.dropTransaction(transactionId);
+            transactions.remove(holder.getAdapterPosition());
+            notifyItemRemoved(holder.getAdapterPosition());
+        });
+
+        holder.updateButton.setOnClickListener(e ->{
+            if(holder.quantityTextview.getVisibility() == View.VISIBLE){
+                holder.editQuantityField.setText(holder.quantityTextview.getText().toString());
+
+                holder.quantityTextview.setVisibility(View.GONE);
+                holder.editQuantityField.setVisibility(View.VISIBLE);
+                holder.editQuantityField.requestFocus();
+                InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.showSoftInput(holder.editQuantityField, inputMethodManager.SHOW_IMPLICIT);
+            }else{
+                holder.quantityTextview.setText(holder.editQuantityField.getText().toString());
+                Integer transactionId = transactions.get(holder.getAdapterPosition()).getTransactionId();
+                Integer newQuantity = Integer.parseInt(String.valueOf(holder.editQuantityField.getText()));
+                transactionDb.updateTransaction(transactionId, newQuantity);
+                transactions.get(position).setQuantity(Integer.parseInt(String.valueOf(holder.editQuantityField.getText())));
+                holder.editQuantityField.setVisibility(View.GONE);
+                holder.quantityTextview.setVisibility(View.VISIBLE);
+                InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(holder.editQuantityField.getWindowToken(), 0);
+
+                notifyItemChanged(position);
+            }
+        });
     }
 
 

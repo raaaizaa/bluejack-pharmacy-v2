@@ -171,6 +171,18 @@ public class TransactionDatabaseHelper extends SQLiteOpenHelper {
         return totalPrice;
     }
 
+    public void dropTransaction(Integer transactionId){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("transactions", "transactionId = ?", new String[]{String.valueOf(transactionId)});
+    }
+
+    public void updateTransaction(Integer transactionId, Integer newQuantity){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("quantity", newQuantity);
+        db.update("transactions", contentValues,"transactionId = ?", new String[]{String.valueOf(transactionId)});
+    }
+
     private ContentValues inputContent(Integer transactionId, Integer medicineId, Integer userId, Date transactionDate, Integer quantity) {
         ContentValues contentValues = new ContentValues();
 
