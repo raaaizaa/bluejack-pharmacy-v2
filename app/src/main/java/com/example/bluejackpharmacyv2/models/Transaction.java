@@ -1,16 +1,18 @@
 package com.example.bluejackpharmacyv2.models;
 
+import android.util.Log;
+
 import java.util.Date;
 
 public class Transaction {
     String medicineImage, medicineName, manufacturer;
     Integer transactionId, medicineId, userId, quantity, price;
-    String transactionDate;
+    Date transactionDate;
 
-    public Transaction(String medicineImage, String medicineName, String manufacturer, Integer transactionId, Integer price, Integer medicineId, Integer userId, Integer quantity, String transactionDate) {
+    public Transaction(String medicineImage, String manufacturer, String medicineName, Integer transactionId, Integer price, Integer medicineId, Integer userId, Integer quantity, Date transactionDate) {
         this.medicineImage = medicineImage;
-        this.medicineName = medicineName;
         this.manufacturer = manufacturer;
+        this.medicineName = medicineName;
         this.transactionId = transactionId;
         this.price = price;
         this.medicineId = medicineId;
@@ -51,7 +53,7 @@ public class Transaction {
         this.transactionId = transactionId;
     }
 
-    public Integer getPrice() {
+    public int getPrice() {
         return price;
     }
 
@@ -83,11 +85,11 @@ public class Transaction {
         this.quantity = quantity;
     }
 
-    public String getTransactionDate() {
+    public Date getTransactionDate() {
         return transactionDate;
     }
 
-    public void setTransactionDate(String transactionDate) {
+    public void setTransactionDate(Date transactionDate) {
         this.transactionDate = transactionDate;
     }
 }

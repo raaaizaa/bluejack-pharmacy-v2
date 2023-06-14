@@ -116,7 +116,7 @@ public class MedicineFragment extends Fragment {
                     }
 
                     for(Medicine medicine : medicines){
-                        Log.i("MedicineFragment", "fetchJson: " + medicine.getMedicineName());
+
                     }
                 },
                 Throwable::printStackTrace

@@ -72,7 +72,6 @@ public class Register extends AppCompatActivity {
             }else{
                 insertUserToDatabase(name, email, password, phoneNumber);
                 showToast("Login Success!");
-                Log.i("register", "setListener: Login Success!");
                 startLogin();
             }
         });
@@ -129,8 +128,6 @@ public class Register extends AppCompatActivity {
         }else{
             if(phoneNumber.contains("+62")){
                 userDb.insertUser(name, email, password, phoneNumber);
-                Log.i("register", "insertUserToDatabase: name: " + name  + " email: " + email + " password: " + password + " phoneNumber: " + phoneNumber);
-
                 User user = new User(userDb.getUserId(email), name, email, password, phoneNumber, userDb.getVerified(name));
                 users.add(user);
             }else{
@@ -138,8 +135,6 @@ public class Register extends AppCompatActivity {
                 String fixedPhoneNumber = countryCode.concat(phoneNumber);
 
                 userDb.insertUser(name, email, password, fixedPhoneNumber);
-                Log.i("register", "insertUserToDatabase: name: " + name  + " email: " + email + " password: " + password + " phoneNumber: " + fixedPhoneNumber);
-
                 User user = new User(userDb.getUserId(email), name, email, password, fixedPhoneNumber, userDb.getVerified(name));
                 users.add(user);
             }

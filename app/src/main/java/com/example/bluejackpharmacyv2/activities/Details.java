@@ -46,7 +46,6 @@ public class Details extends AppCompatActivity {
 
         transactions = new ArrayList<>();
         String email = getIntent().getStringExtra("userEmail");
-        Log.i("userEmail: ", email);
 
         initialize(email);
     }
@@ -101,8 +100,8 @@ public class Details extends AppCompatActivity {
                 String message = "Are you sure you want to buy this item?";
 
                 new AlertDialog.Builder(this).setMessage(message).setPositiveButton("Yes", ((dialog, which) -> {
-                    Integer totalPrice = Integer.parseInt(counter) * Integer.parseInt(price);
-                    addToTransaction(email, medicineId, String.valueOf(totalPrice));
+                    addToTransaction(email, medicineId, counter, price);
+
                     showToast("Success adding item!");
                 }))
                         .setNegativeButton("No", null).show();
@@ -127,23 +126,25 @@ public class Details extends AppCompatActivity {
         Picasso.get().load(medicineImage).into(medicineImageview);
     }
 
-    private void addToTransaction(String email, Integer medicineId, String counter){
+    private void addToTransaction(String email, Integer medicineId, String counter, String price){
         transactionDb = new TransactionDatabaseHelper(this, medicineDb);
         userDb = new UserDatabaseHelper(this);
 
-        Log.i("Details: addToTransaction", "email: " + email);
         Integer userId = userDb.getUserId(email);
-        Log.i("Details: addToTransaction", "userId dari intent = " + userId);
         Integer quantity = Integer.parseInt(counter);
-        Integer price = Integer.parseInt((String) medicinePriceTextview.getText());
 
         Calendar calendar = Calendar.getInstance();
         Date currentDate = calendar.getTime();
 
         transactionDb.newTransaction(medicineId, userId, currentDate, quantity);
-        Transaction transaction = new Transaction(getMedicineImage(userId, currentDate), getManufacturer(medicineId), getMedicineName(medicineId), getTransactionId(medicineId, userId, currentDate), getTotalPrice(userId, medicineId, currentDate, price), medicineId, userId, quantity, currentDate.toString());
+
+        String medicineImage = getMedicineImage(userId, currentDate);
+        String manufacturer = getManufacturer(medicineId);
+        String medicineName = getMedicineName(medicineId);
+        Integer transactionId = getTransactionId(medicineId, userId, currentDate);
+        Integer totalPrice = getTotalPrice(userId, medicineId, currentDate, Integer.parseInt(price), quantity);
+        Transaction transaction = new Transaction(medicineImage, manufacturer , medicineName, transactionId, totalPrice, medicineId, userId, quantity, currentDate);
         transactions.add(transaction);
-        Log.i("jumlah transaction: ", "nih " + String.valueOf(transactions.size()));
     }
 
     private Integer getTransactionId(Integer medicineId, Integer userId, Date transactionDate){
@@ -174,9 +175,9 @@ public class Details extends AppCompatActivity {
         return manufacturer;
     }
 
-    private Integer getTotalPrice(Integer userId, Integer medicineId, Date transactionDate, Integer price){
+    private Integer getTotalPrice(Integer userId, Integer medicineId, Date transactionDate, Integer price, Integer counter){
         transactionDb = new TransactionDatabaseHelper(this, medicineDb);
-        Integer totalPrice = transactionDb.getTotalPrice(userId, medicineId, transactionDate, price);
+        Integer totalPrice = transactionDb.getTotalPrice(userId, medicineId, transactionDate, price, counter);
 
         return totalPrice;
     }

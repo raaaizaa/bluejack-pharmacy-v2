@@ -11,9 +11,12 @@ import android.util.Log;
 import com.example.bluejackpharmacyv2.models.Medicine;
 import com.example.bluejackpharmacyv2.models.Transaction;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class TransactionDatabaseHelper extends SQLiteOpenHelper {
     private MedicineDatabaseHelper medicineDb;
@@ -45,9 +48,6 @@ public class TransactionDatabaseHelper extends SQLiteOpenHelper {
         ContentValues contentValues = inputContent(transactionId, medicineId, userId, transactionDate, quantity);
 
         long results = db.insert("transactions", null, contentValues);
-        Log.i("transactionDbHelper", "newTransaction: Creating new transaction success!");
-        Log.i("transactionDbHelper", "transactionId: " + transactionId + " userId: " + userId + " transactionDate: " + transactionDate + " quantity: " + quantity);
-
         db.close();
     }
 
@@ -70,10 +70,8 @@ public class TransactionDatabaseHelper extends SQLiteOpenHelper {
             latestTransactionId = 2023000;
         }
 
-        Log.i("transactionDbHelper", "generateTransactionId: latestTransactionId is = " + latestTransactionId);
         Integer newTransactionId = latestTransactionId + 1;
 
-        Log.i("transactionDbHelper", "generateTransactionId: new generated ID is = " + newTransactionId);
         return newTransactionId;
     }
 
@@ -87,7 +85,15 @@ public class TransactionDatabaseHelper extends SQLiteOpenHelper {
 
         if (transactionCursor.moveToFirst()) {
             do {
-                String transactionDate = transactionCursor.getString(transactionCursor.getColumnIndex("transactionDate"));
+                String transactionDateString = transactionCursor.getString(transactionCursor.getColumnIndex("transactionDate"));
+                Date transactionDate = null;
+                try {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.getDefault());
+                    transactionDate = dateFormat.parse(transactionDateString);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
                 int transactionId = transactionCursor.getInt(transactionCursor.getColumnIndex("transactionId"));
                 int medicineId = transactionCursor.getInt(transactionCursor.getColumnIndex("medicineId"));
                 int quantity = transactionCursor.getInt(transactionCursor.getColumnIndex("quantity"));
@@ -148,12 +154,13 @@ public class TransactionDatabaseHelper extends SQLiteOpenHelper {
     }
 
     @SuppressLint("Range")
-    public Integer getTotalPrice(Integer userId, Integer medicineId, Date transactionDate, Integer price){
+    public Integer getTotalPrice(Integer userId, Integer medicineId, Date transactionDate, Integer price, Integer counter){
         SQLiteDatabase db = this.getWritableDatabase();
-        String selectQuery = "SELECT quantity FROM transactions WHERE userId = ? AND medicineId = ? OR transactionDate = ?";
+        String selectQuery = "SELECT quantity FROM transactions WHERE (userId = ? AND medicineId = ?) AND transactionDate = ?";
         Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(userId), String.valueOf(medicineId), String.valueOf(transactionDate)});
 
         Integer totalPrice = null;
+        Integer quantity = null;
 
         if(cursor.moveToFirst()){
             totalPrice = cursor.getInt(cursor.getColumnIndex("quantity")) * price;

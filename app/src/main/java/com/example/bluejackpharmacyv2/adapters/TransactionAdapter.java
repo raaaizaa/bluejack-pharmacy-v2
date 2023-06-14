@@ -1,5 +1,6 @@
 package com.example.bluejackpharmacyv2.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,12 +33,13 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private ImageView medicineImage;
-        private TextView transactionDateTextview, medicineNameTextview, manufacturerTextview, priceTextview, quantityTextview;
+        private TextView transactionIdTextview, transactionDateTextview, medicineNameTextview, manufacturerTextview, priceTextview, quantityTextview;
         private EditText editQuantityField;
         private Button updateButton, deleteButton;
 
         public ViewHolder(View view) {
             super(view);
+            transactionIdTextview = view.findViewById(R.id.id_transaction);
             medicineImage = view.findViewById(R.id.medicine_image_transaction);
             transactionDateTextview = view.findViewById(R.id.date_transaction);
             medicineNameTextview = view.findViewById(R.id.medicine_name_transaction);
@@ -58,17 +60,17 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         return new ViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Transaction transaction = transactions.get(position);
+        holder.transactionIdTextview.setText(transaction.getTransactionId().toString());
         Picasso.get().load(transaction.getMedicineImage()).into(holder.medicineImage);
         holder.medicineNameTextview.setText(transaction.getMedicineName());
         holder.transactionDateTextview.setText(String.valueOf(transaction.getTransactionDate()));
         holder.manufacturerTextview.setText(transaction.getManufacturer());
-        Log.i("tes OnBindViewHolder", "getPrice " + transaction.getPrice().toString());
-        holder.priceTextview.setText(transaction.getPrice().toString());
+        holder.priceTextview.setText(String.valueOf(transaction.getPrice() * transaction.getQuantity()));
         holder.quantityTextview.setText(transaction.getQuantity().toString());
-        Log.i("onBindViewHolder", transaction.getMedicineName());
     }
 
 

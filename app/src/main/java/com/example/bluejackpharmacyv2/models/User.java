@@ -13,8 +13,6 @@ public class User {
         this.password = password;
         this.phone = phone;
         this.isVerified = isVerified;
-
-        Log.i("tes", userId + name + email + password + phone + isVerified);
     }
 
     public Integer getUserId() {

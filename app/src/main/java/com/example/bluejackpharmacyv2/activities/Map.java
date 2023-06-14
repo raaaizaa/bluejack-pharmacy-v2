@@ -55,7 +55,5 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback{
         LatLng latlng = new LatLng(LAT, LONG);
         map.addMarker(new MarkerOptions().position(latlng).title(MARKER_NAME));
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, ZOOM_LEVEL));
-        Log.i("map", "onMapReady: Success!");
-        Log.i("map", "onMapReady: LAT: " + LAT + " LONG: " + LONG);
     }
 }

@@ -36,10 +36,8 @@ public class Login extends AppCompatActivity {
         boolean userExists = userDb.loginCheck(email, password);
 
         if(userExists){
-            Log.i("login", "loginValidation: user exists!");
             return true;
         }else{
-            Log.i("login", "loginValidation: user does not exists!");
             return false;
         }
     }
@@ -49,10 +47,8 @@ public class Login extends AppCompatActivity {
         boolean userIsVerified = userDb.checkVerified(email);
 
         if(userIsVerified){
-            Log.i("login", "isUserVerified: User is verified!");
             return true;
         }else{
-            Log.i("login", "isUserVerified: User isn't verified!");
             return false;
         }
     }

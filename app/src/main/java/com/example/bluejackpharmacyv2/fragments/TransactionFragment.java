@@ -46,7 +46,6 @@ public class TransactionFragment extends Fragment {
 
         transactionRV = view.findViewById(R.id.transaction_recyclerview);
         getTransactions(email);
-        Log.i("onCreateView", "size transactions = " + String.valueOf(getTransactions(email).size()));
         setRecyclerview(getTransactions(email), context, email);
 
         return view;

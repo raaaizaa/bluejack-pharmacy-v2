@@ -37,16 +37,11 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         boolean userExists = checkUser(name, password);
 
-        if(userExists){
-            Log.i("userDbHelper", "insertUser: User Already Exists!");
-        }else {
+        if(!userExists){
             Integer userId = generateUserId();
             ContentValues contentValues = inputContent(userId, name, email, password, phone);
 
             long results = db.insert("user", null, contentValues);
-
-            Log.i("userDbHelper", "insertUser: Inserting User Success!");
-            Log.i("userDbHelper", "userId: " + userId.toString() + " name: " + name + " email: " + email + " password: " + password + " phone: " + phone);
 
             db.close();
         }
@@ -92,11 +87,9 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
             latestUserId = cursor.getInt(0);
         }
 
-        Log.i("userDbHelper", "generateUserId: latestUserId is = " + latestUserId);
         Integer newUserId = latestUserId + 1;
         cursor.close();
 
-        Log.i("userDbHelper", "generateUserId: new generated ID is = " + newUserId);
         return newUserId;
     }
 
@@ -139,7 +132,6 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             String value = cursor.getString(cursor.getColumnIndex("verified"));
             result = value.equals("verified");
-            Log.i("checkVerified: ", "result = " + result);
         }
 
         cursor.close();
@@ -181,9 +173,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         int rowsAffected = db.update("user", values, "email = ?", new String[]{email});
 
         if (rowsAffected > 0) {
-            Log.i("userDbHelper","Verification status updated successfully!");
         } else {
-            Log.i("userDbHelper","Failed to update verification status!");
         }
 
         db.close();
@@ -208,7 +198,6 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
 
             User user = new User(1, "dummy", "dummy@gmail.com", "dummy123", "+6281314102381", "verified");
             users.add(user);
-            Log.i("tes", String.valueOf(users));
 
             db.close();
         }
@@ -223,7 +212,6 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             userId = cursor.getInt(cursor.getColumnIndex("userId"));
-            Log.i("UserDb: getUserId", "userId = " + userId);
         }
 
         cursor.close();

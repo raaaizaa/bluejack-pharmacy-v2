@@ -35,16 +35,12 @@ public class MedicineDatabaseHelper extends SQLiteOpenHelper {
         boolean medicineExists = checkMedicine(medicineName, manufacturer);
 
         if(medicineExists){
-            Log.i("medicineDbHelper", "insertMedicine: Medicine Already Exists!");
             return false;
         }else{
             Integer medicineId = generateMedicineId();
             ContentValues contentValues = inputContent(medicineId, medicineName, manufacturer, price, image, description);
 
             long results = db.insert("medicine", null, contentValues);
-
-            Log.i("medicineDbHelper", "insertMedicine: Inserting Medicine Success!");
-            Log.i("medicineDbHelper", "medicineId: " + medicineId + " medicineName: " + medicineName + " manufacturer: " + manufacturer + " price: " + price + " image: " + image + " description: " + description);
 
             db.close();
             return results != -1;
@@ -71,11 +67,9 @@ public class MedicineDatabaseHelper extends SQLiteOpenHelper {
             latestMedicineId = cursor.getInt(0);
         }
 
-        Log.i("medicineDbHelper", "generateMedicineId: latestMedicineId is = " + latestMedicineId);
         Integer newMedicineId = latestMedicineId + 1;
         cursor.close();
 
-        Log.i("medicineDbHelper", "generateMedicineId: new generated ID is = " + newMedicineId);
         return newMedicineId;
     }
 
