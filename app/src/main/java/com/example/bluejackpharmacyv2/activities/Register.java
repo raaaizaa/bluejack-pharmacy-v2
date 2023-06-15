@@ -127,15 +127,19 @@ public class Register extends AppCompatActivity {
         }else{
             if(phoneNumber.contains("+62")){
                 userDb.insertUser(name, email, password, phoneNumber);
-                User user = new User(userDb.getUserId(email), name, email, password, phoneNumber, userDb.getVerified(name));
+
+                Integer userId = userDb.getUserId(email);
+                String verified = userDb.getVerified(name);
+                User user = new User(userId, name, email, password, phoneNumber, verified);
                 users.add(user);
             }else{
                 String countryCode = "+62";
                 String fixedPhoneNumber = countryCode.concat(phoneNumber);
-
                 userDb.insertUser(name, email, password, fixedPhoneNumber);
-                User user = new User(userDb.getUserId(email), name, email, password, fixedPhoneNumber, userDb.getVerified(name));
-                Log.i("ASD", userDb.getUserId(email) + " " + name + " " + email + " " + password + " " + fixedPhoneNumber + " " + userDb.getVerified(name));
+
+                Integer userId = userDb.getUserId(email);
+                String verified = userDb.getVerified(name);
+                User user = new User(userId, name, email, password, fixedPhoneNumber, verified);
                 users.add(user);
             }
         }

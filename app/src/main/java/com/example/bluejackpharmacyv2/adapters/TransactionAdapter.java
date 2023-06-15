@@ -114,23 +114,30 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     private void updateTransactionQuantity(ViewHolder holder) {
         holder.quantityTextview.setText(holder.editQuantityField.getText().toString());
         Integer transactionId = transactions.get(holder.getAdapterPosition()).getTransactionId();
-        Integer newQuantity = Integer.parseInt(String.valueOf(holder.editQuantityField.getText()));
+        String newQuantityInput = holder.editQuantityField.getText().toString().trim();
 
-        if(newQuantity.equals(0)){
-            showToast("You must input a quantity greater than 0!");
-        }else{
-            transactionDb.updateTransaction(transactionId, newQuantity);
-            transactions.get(holder.getAdapterPosition()).setQuantity(newQuantity);
+        if (newQuantityInput.isEmpty()) {
+            showToast("Quantity must be filled!");
+        } else {
+            Integer newQuantity = Integer.parseInt(newQuantityInput);
 
-            holder.editQuantityField.setVisibility(View.GONE);
-            holder.quantityTextview.setVisibility(View.VISIBLE);
+            if (newQuantity.equals(0)) {
+                showToast("You must input a quantity greater than 0!");
+            } else {
+                transactionDb.updateTransaction(transactionId, newQuantity);
+                transactions.get(holder.getAdapterPosition()).setQuantity(newQuantity);
 
-            InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputMethodManager.hideSoftInputFromWindow(holder.editQuantityField.getWindowToken(), 0);
-            notifyItemChanged(holder.getAdapterPosition());
-            showToast("Success editing quantity!");
+                holder.editQuantityField.setVisibility(View.GONE);
+                holder.quantityTextview.setVisibility(View.VISIBLE);
+
+                InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(holder.editQuantityField.getWindowToken(), 0);
+                notifyItemChanged(holder.getAdapterPosition());
+                showToast("Success editing quantity!");
+            }
         }
     }
+
 
     @Override
     public int getItemCount() {
