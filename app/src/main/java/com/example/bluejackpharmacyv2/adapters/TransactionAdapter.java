@@ -72,25 +72,17 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         medicineDb = new MedicineDatabaseHelper(context);
         transactionDb = new TransactionDatabaseHelper(context, medicineDb);
 
-        holder.transactionIdTextview.setText(transaction.getTransactionId().toString());
         Picasso.get().load(transaction.getMedicineImage()).into(holder.medicineImage);
+        holder.transactionIdTextview.setText(transaction.getTransactionId().toString());
         holder.medicineNameTextview.setText(transaction.getMedicineName());
         holder.transactionDateTextview.setText(String.valueOf(transaction.getTransactionDate()));
         holder.manufacturerTextview.setText(transaction.getManufacturer());
         holder.priceTextview.setText(String.valueOf(transaction.getPrice() * transaction.getQuantity()));
         holder.quantityTextview.setText(transaction.getQuantity().toString());
 
-        holder.itemView.setOnClickListener(e -> {
-            // Cuman biar ripple effectnya jalan doang
-        });
+        holder.itemView.setOnClickListener(e -> {});
 
-        holder.deleteButton.setOnClickListener(e -> {
-            Integer transactionId = transactions.get(holder.getAdapterPosition()).getTransactionId();
-            transactionDb.dropTransaction(transactionId);
-
-            transactions.remove(holder.getAdapterPosition());
-            notifyItemRemoved(holder.getAdapterPosition());
-        });
+        holder.deleteButton.setOnClickListener(e -> dropTransaction(holder));
 
         holder.updateButton.setOnClickListener(e ->{
             if(holder.quantityTextview.getVisibility() == View.VISIBLE){
@@ -99,6 +91,13 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
                 updateTransactionQuantity(holder);
             }
         });
+    }
+
+    private void dropTransaction(ViewHolder holder){
+        Integer transactionId = transactions.get(holder.getAdapterPosition()).getTransactionId();
+        transactionDb.dropTransaction(transactionId);
+        transactions.remove(holder.getAdapterPosition());
+        notifyItemRemoved(holder.getAdapterPosition());
     }
 
     private void showEditQuantityField(ViewHolder holder) {
