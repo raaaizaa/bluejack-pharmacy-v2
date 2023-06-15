@@ -48,8 +48,6 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     public void setListener(){
-        backButton.setOnClickListener(e -> {
-            finish();
-        });
+        backButton.setOnClickListener(e -> finish());
     }
 }
